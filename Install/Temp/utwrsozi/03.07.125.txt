@@ -1,0 +1,2 @@
+DesktopModules\AvatarSoft\ActionForm\App_LocalResources\Form.es-MX.Host.resx 
+DesktopModules\AvatarSoft\ActionForm\App_LocalResources\Form.en-US.Portal-0.resx 

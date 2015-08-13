@@ -1,0 +1,5 @@
+D:\dnndev\DesktopModules\My Module\bin\Featured_Product.dll
+D:\dnndev\DesktopModules\My Module\bin\Featured_Product.pdb
+D:\dnndev\DesktopModules\My Module\Featured Product\Featured Product\obj\Release\Featured_Product.dll
+D:\dnndev\DesktopModules\My Module\Featured Product\Featured Product\obj\Release\Featured_Product.pdb
+D:\dnndev\DesktopModules\My Module\Featured Product\Featured Product\obj\Release\Featured Product.csprojResolveAssemblyReference.cache

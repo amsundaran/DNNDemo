@@ -1,0 +1,5 @@
+D:\dnndev\DesktopModules\My Module\bin\News_List.dll
+D:\dnndev\DesktopModules\My Module\bin\News_List.pdb
+D:\dnndev\DesktopModules\My Module\News List\News List\obj\Release\News_List.dll
+D:\dnndev\DesktopModules\My Module\News List\News List\obj\Release\News_List.pdb
+D:\dnndev\DesktopModules\My Module\News List\News List\obj\Release\News List.csprojResolveAssemblyReference.cache

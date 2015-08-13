@@ -1,0 +1,4 @@
+D:\dnndev\bin\DNNTheme1.dll
+D:\dnndev\bin\DNNTheme1.pdb
+D:\dnndev\DesktopModules\MyTheme\DNNTheme1\DNNTheme1\obj\Release\DNNTheme1.dll
+D:\dnndev\DesktopModules\MyTheme\DNNTheme1\DNNTheme1\obj\Release\DNNTheme1.pdb

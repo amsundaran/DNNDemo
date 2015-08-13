@@ -1,0 +1,49 @@
+﻿/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+/** Drop Tables **/
+declare @cmd varchar(4000)
+declare cmds cursor for
+Select 'drop table [' + Table_Name + ']'
+From    INFORMATION_SCHEMA.TABLES
+Where   Table_Name like '%DNNInfo_News%'
+union
+Select 'drop view [' + Table_Name + ']'
+From    INFORMATION_SCHEMA.VIEWS
+Where   Table_Name like '%DNNInfo_News%'
+open cmds
+while 1=1
+begin
+    fetch cmds into @cmd
+    if @@fetch_status != 0 break
+    exec(@cmd)
+end
+close cmds
+deallocate cmds
+GO
+
+declare @procName varchar(500)
+declare cur cursor
+for select [name] from sys.objects where type = 'p' and name like '%DNNInfo_News%'
+open cur
+	fetch next from cur into @procName
+	while @@fetch_status = 0
+	begin
+		exec('drop procedure ' + @procName)
+		fetch next from cur into @procName
+	end
+close cur
+deallocate cur
+GO
+
+
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/************************************************************/

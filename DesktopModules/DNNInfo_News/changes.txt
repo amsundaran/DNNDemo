@@ -1,0 +1,22 @@
+﻿Version 1.2.0
+===================================
+FIXED: No of records displayed in the admin statistic page.
+
+ADDED: Add [$COUNTER] token
+ADDED: Add a button for add new article in the home control panel page.
+ADDED: Visible Mode and header text in the quick news list module
+ADDED: Token [$EDITLINK] and [$ADMINEDITLINK]
+ADDED: Add show news based on specific categories only in News List and Quick News List Modules
+ADDED: Quick voting feature
+ADDED: Reply comment feature
+
+UPDATED: Updated version of thumbnail generation (instead of strecthing the image)
+
+
+Version 1.3.0
+===================================
+ADDED: Pending comments in Control Panel Admin
+ADDED: Integrate News results with DNN Search
+ADDED: Can show only specific categories in the category list settings
+
+UPDATED: Name and email will be automatically hidden if the user has already login in the popup reply.

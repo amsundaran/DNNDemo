@@ -1,0 +1,48 @@
+﻿<dotnetnuke type="ResourceFile" version="5.0">
+  <files>
+    <file>
+      <path />
+      <name>moduleEdit.css</name>
+    </file>
+    <file>
+      <path />
+      <name>Scripter.ascx</name>
+    </file>
+    <file>
+      <path />
+      <name>ScripterSettings.ascx</name>
+    </file>
+    <file>
+      <path>App_LocalResources/</path>
+      <name>Scripter.ascx.resx</name>
+    </file>
+    <file>
+      <path>App_LocalResources/</path>
+      <name>ScripterSettings.ascx.resx</name>
+    </file>
+    <file>
+      <path>images/</path>
+      <name>down.gif</name>
+    </file>
+    <file>
+      <path>images/</path>
+      <name>help.gif</name>
+    </file>
+    <file>
+      <path>images/</path>
+      <name>up.gif</name>
+    </file>
+    <file>
+      <path>js/</path>
+      <name>eventTracking.js</name>
+    </file>
+    <file>
+      <path>js/</path>
+      <name>scripter.js</name>
+    </file>
+    <file>
+      <path>js/</path>
+      <name>tracking.js</name>
+    </file>
+  </files>
+</dotnetnuke>

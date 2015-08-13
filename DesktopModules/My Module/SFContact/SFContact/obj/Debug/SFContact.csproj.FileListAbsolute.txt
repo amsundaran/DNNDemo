@@ -1,0 +1,6 @@
+D:\dnndev\DesktopModules\My Module\bin\SFContact.dll
+D:\dnndev\DesktopModules\My Module\bin\SFContact.pdb
+D:\dnndev\DesktopModules\My Module\SFContact\SFContact\obj\Debug\SFContact.dll
+D:\dnndev\DesktopModules\My Module\SFContact\SFContact\obj\Debug\SFContact.pdb
+D:\dnndev\DesktopModules\My Module\bin\SFContact.dll.config
+D:\dnndev\DesktopModules\My Module\SFContact\SFContact\obj\Debug\SFContact.csprojResolveAssemblyReference.cache

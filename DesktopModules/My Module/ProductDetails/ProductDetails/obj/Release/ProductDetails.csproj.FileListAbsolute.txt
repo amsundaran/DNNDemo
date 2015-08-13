@@ -1,0 +1,4 @@
+D:\dnndev\DesktopModules\My Module\bin\ProductDetails.dll
+D:\dnndev\DesktopModules\My Module\bin\ProductDetails.pdb
+D:\dnndev\DesktopModules\My Module\ProductDetails\ProductDetails\obj\Release\ProductDetails.dll
+D:\dnndev\DesktopModules\My Module\ProductDetails\ProductDetails\obj\Release\ProductDetails.pdb

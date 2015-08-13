@@ -1,0 +1,594 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="btnUpdate.Text" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="lblCategoryImageSize.Text" xml:space="preserve">
+    <value>Category Image Size</value>
+  </data>
+  <data name="lblImageSettings.Text" xml:space="preserve">
+    <value>Image Settings</value>
+  </data>
+  <data name="lblMaxImageUploadSize.Help" xml:space="preserve">
+    <value>This will be the default max image upload size</value>
+  </data>
+  <data name="lblMaxImageUploadSize.Text" xml:space="preserve">
+    <value>Max image upload size</value>
+  </data>
+  <data name="lblNewsLargeImageSize.Text" xml:space="preserve">
+    <value>News Large Image Size</value>
+  </data>
+  <data name="lblNewsMediumImageSize.Text" xml:space="preserve">
+    <value>News Medium Image Size</value>
+  </data>
+  <data name="lblNewsThumbImageSize.Text" xml:space="preserve">
+    <value>News Thumb Image Size</value>
+  </data>
+  <data name="lblNoOfAllowedYouTubeVideos.Help" xml:space="preserve">
+    <value>This will be no of videos allowed for each classified</value>
+  </data>
+  <data name="lblNoOfAllowedYouTubeVideos.Text" xml:space="preserve">
+    <value>No of Allowed Videos</value>
+  </data>
+  <data name="lblYouTubeNoOfPaging.Help" xml:space="preserve">
+    <value>This will be the no of paging</value>
+  </data>
+  <data name="lbYouTubelNoOfPaging.Text" xml:space="preserve">
+    <value>No of Paging</value>
+  </data>
+  <data name="lblNoOfYouTubeVideosPerPage.Help" xml:space="preserve">
+    <value>This will be maximum nof of videos per page</value>
+  </data>
+  <data name="lblNoOfYouTubeVideosPerPage.Text" xml:space="preserve">
+    <value>Total of Videos Per Page</value>
+  </data>
+  <data name="lblSettings.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="lblThumbnailVideoImageHeight.Help" xml:space="preserve">
+    <value>This will be the height of thumbnail video image</value>
+  </data>
+  <data name="lblThumbnailVideoImageHeight.Text" xml:space="preserve">
+    <value>Thumbnail video image height</value>
+  </data>
+  <data name="lblThumbnailVideoImageHeightForForm.Help" xml:space="preserve">
+    <value>This will be the height of thumbnail video image</value>
+  </data>
+  <data name="lblThumbnailVideoImageHeightForForm.Text" xml:space="preserve">
+    <value>Thumbnail video image height (for form)</value>
+  </data>
+  <data name="lblThumbnailVideoImageWidth.Help" xml:space="preserve">
+    <value>This will be the width of thumbail video image</value>
+  </data>
+  <data name="lblThumbnailVideoImageWidth.Text" xml:space="preserve">
+    <value>Thumbnail video image width</value>
+  </data>
+  <data name="lblThumbnailVideoImageWidthForForm.Help" xml:space="preserve">
+    <value>This will be the width of thumbail video image</value>
+  </data>
+  <data name="lblThumbnailVideoImageWidthForForm.Text" xml:space="preserve">
+    <value>Thumbnail video image width (for form)</value>
+  </data>
+  <data name="lblYouTubePlayerHeight.Help" xml:space="preserve">
+    <value>This will be the player height</value>
+  </data>
+  <data name="lblYouTubePlayerHeight.Text" xml:space="preserve">
+    <value>Player Height</value>
+  </data>
+  <data name="lblYouTubePlayerListHeight.Help" xml:space="preserve">
+    <value>This will be the player list height</value>
+  </data>
+  <data name="lblYouTubePlayerListHeight.Text" xml:space="preserve">
+    <value>Player List Height</value>
+  </data>
+  <data name="lblYouTubePlayerListWidth.Help" xml:space="preserve">
+    <value>This will be the player list width</value>
+  </data>
+  <data name="lblYouTubePlayerListWidth.Text" xml:space="preserve">
+    <value>Player List Width</value>
+  </data>
+  <data name="lblYouTubePlayerMainTemplate.Help" xml:space="preserve">
+    <value>This will be the player main template</value>
+  </data>
+  <data name="lblYouTubePlayerMainTemplate.Text" xml:space="preserve">
+    <value>Player Main Template</value>
+  </data>
+  <data name="lblYouTubePlayerTemplate.Help" xml:space="preserve">
+    <value>This will be the player template</value>
+  </data>
+  <data name="lblYouTubePlayerTemplate.Text" xml:space="preserve">
+    <value>Player Template</value>
+  </data>
+  <data name="lblYouTubePlayerWidth.Help" xml:space="preserve">
+    <value>This will be the player width</value>
+  </data>
+  <data name="lblYouTubePlayerWidth.Text" xml:space="preserve">
+    <value>Player Width</value>
+  </data>
+  <data name="lblYouTubePlayListTemplate.Help" xml:space="preserve">
+    <value>This will be the player list template</value>
+  </data>
+  <data name="lblYouTubePlayListTemplate.Text" xml:space="preserve">
+    <value>Player List Template</value>
+  </data>
+  <data name="lblYouTubeSettings.Text" xml:space="preserve">
+    <value>YouTube Settings</value>
+  </data>
+  <data name="UpdateMessage.Text" xml:space="preserve">
+    <value>The settings have been updated</value>
+  </data>
+  <data name="dark_rounded.Text" xml:space="preserve">
+    <value>dark_rounded</value>
+  </data>
+  <data name="dark_square.Text" xml:space="preserve">
+    <value>dark_square</value>
+  </data>
+  <data name="default.Text" xml:space="preserve">
+    <value>default</value>
+  </data>
+  <data name="facebook.Text" xml:space="preserve">
+    <value>facebook</value>
+  </data>
+  <data name="lblDefaultDateTimeFormat.Help" xml:space="preserve">
+    <value>This will be the date time format, ex: dd MMM yyyy hh:mm:ss tt, dd/MM/yyyy hh:mm:ss tt, dd/MM/yy hh:mm:ss tt, MM/dd/yy hh:mm:ss tt, etc</value>
+  </data>
+  <data name="lblDefaultDateTimeFormat.Text" xml:space="preserve">
+    <value>Default Date Time Format</value>
+  </data>
+  <data name="lblGalleryThemes.Text" xml:space="preserve">
+    <value>Gallery Themes</value>
+  </data>
+  <data name="lblMiscSettings.Text" xml:space="preserve">
+    <value>Misc Settings</value>
+  </data>
+  <data name="light_rounded.Text" xml:space="preserve">
+    <value>light_rounded</value>
+  </data>
+  <data name="light_square.Text" xml:space="preserve">
+    <value>light_square</value>
+  </data>
+  <data name="lblAutoApprovedCommentRoles.Help" xml:space="preserve">
+    <value>Tick the roles that will get auto approved comments (no checking required)</value>
+  </data>
+  <data name="lblAutoApprovedCommentRoles.Text" xml:space="preserve">
+    <value>Auto Approved Comments (NewsList Module)</value>
+  </data>
+  <data name="lblCaptchaComment.Help" xml:space="preserve">
+    <value>Tick this will enable a captcha code in the comment form</value>
+  </data>
+  <data name="lblCaptchaComment.Text" xml:space="preserve">
+    <value>Captcha Comment</value>
+  </data>
+  <data name="lblCommentSettings.Text" xml:space="preserve">
+    <value>Comment Settings</value>
+  </data>
+  <data name="lblDefaultDateFormat.Help" xml:space="preserve">
+    <value>This will be the date time format, ex: dd-MMM-yyyy hh:mm:ss tt, dd/MM/yyyy hh:mm:ss tt, dd/MM/yy hh:mm:ss tt, MM/dd/yy hh:mm:ss tt, etc</value>
+  </data>
+  <data name="lblDefaultDateFormat.Text" xml:space="preserve">
+    <value>Default date format</value>
+  </data>
+  <data name="lblPendingCommentSubmissionText.Help" xml:space="preserve">
+    <value>This will be the message displayed to notify users that their comments are in pending review</value>
+  </data>
+  <data name="lblPendingCommentSubmissionText.Text" xml:space="preserve">
+    <value>Pending Comment Submission Text</value>
+  </data>
+  <data name="lblRolesForComment.Help" xml:space="preserve">
+    <value>Tick the roles that can leave comments for articles</value>
+  </data>
+  <data name="lblRolesForComment.Text" xml:space="preserve">
+    <value>Roles for comment (NewsList Module)</value>
+  </data>
+  <data name="lblUnauthorizedCommentText.Help" xml:space="preserve">
+    <value>This will be the message displayed if the user does not have a permission to leave a message for an article</value>
+  </data>
+  <data name="lblUnauthorizedCommentText.Text" xml:space="preserve">
+    <value>Unauthorized Comment Text</value>
+  </data>
+  <data name="BasicAuthentication.Text" xml:space="preserve">
+    <value>Basic Authentication</value>
+  </data>
+  <data name="lblAdminEmail.Help" xml:space="preserve">
+    <value>This will be the admin email</value>
+  </data>
+  <data name="lblAdminEmail.Text" xml:space="preserve">
+    <value>Admin Email</value>
+  </data>
+  <data name="lblEmailSettings.Text" xml:space="preserve">
+    <value>Email Settings</value>
+  </data>
+  <data name="lblSmtpAuthentication.Help" xml:space="preserve">
+    <value>This will be smtp authentication</value>
+  </data>
+  <data name="lblSmtpAuthentication.Text" xml:space="preserve">
+    <value>SMTP Authentication</value>
+  </data>
+  <data name="lblSmtpPassword.Help" xml:space="preserve">
+    <value>This will be the smtp password</value>
+  </data>
+  <data name="lblSmtpPassword.Text" xml:space="preserve">
+    <value>SMTP Password</value>
+  </data>
+  <data name="lblSmtpServer.Help" xml:space="preserve">
+    <value>This will be the smtp server</value>
+  </data>
+  <data name="lblSmtpServer.Text" xml:space="preserve">
+    <value>SMTP Server</value>
+  </data>
+  <data name="lblSMTPSettings.Text" xml:space="preserve">
+    <value>SMTP Settings</value>
+  </data>
+  <data name="lblSmtpUsername.Help" xml:space="preserve">
+    <value>This will be the smtp username</value>
+  </data>
+  <data name="lblSmtpUsername.Text" xml:space="preserve">
+    <value>SMTP Username</value>
+  </data>
+  <data name="lblUseHostSMTPSettings.Help" xml:space="preserve">
+    <value>If you tick this, it will use the host smtp settings to send the email</value>
+  </data>
+  <data name="lblUseHostSMTPSettings.Text" xml:space="preserve">
+    <value>Use Host SMTP Settings</value>
+  </data>
+  <data name="NoAuthentication.Text" xml:space="preserve">
+    <value>No Authentication</value>
+  </data>
+  <data name="lblApprovedComment.Text" xml:space="preserve">
+    <value>Approved Comment</value>
+  </data>
+  <data name="lblCategoryImageSize.Help" xml:space="preserve">
+    <value>This will be the category image size (pixel)</value>
+  </data>
+  <data name="lblGalleryThemes.Help" xml:space="preserve">
+    <value>This will be the gallery themes</value>
+  </data>
+  <data name="lblHeaderAdmin.Text" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="lblHeaderAuthor.Text" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="lblHeaderUser.Text" xml:space="preserve">
+    <value>User / Commentator</value>
+  </data>
+  <data name="lblImageGalleryEmptyText.Help" xml:space="preserve">
+    <value>This message will be displayed if there are no image gallery available</value>
+  </data>
+  <data name="lblImageGalleryEmptyText.Text" xml:space="preserve">
+    <value>There are no image gallery available</value>
+  </data>
+  <data name="lblNewComment.Text" xml:space="preserve">
+    <value>New Comment</value>
+  </data>
+  <data name="lblNewsLargeImageSize.Help" xml:space="preserve">
+    <value>This will be the large image size (pixel)</value>
+  </data>
+  <data name="lblNewsMediumImageSize.Help" xml:space="preserve">
+    <value>This will be the medium image size (pixel)</value>
+  </data>
+  <data name="lblNewsThumbImageSize.Help" xml:space="preserve">
+    <value>This will be the thumbnail image size (pixel)</value>
+  </data>
+  <data name="lblNotificationNote.Text" xml:space="preserve">
+    <value>If you want to send an email for specific action, please tick the roles checkboxes accordingly</value>
+  </data>
+  <data name="lblNotificationSettings.Text" xml:space="preserve">
+    <value>Notification Settings (Send Email)</value>
+  </data>
+  <data name="lblPendingComment.Text" xml:space="preserve">
+    <value>Pending Comment</value>
+  </data>
+  <data name="lblYouTubeVideosEmptyText.Help" xml:space="preserve">
+    <value>This message will be displayed if there are no youtube videos available</value>
+  </data>
+  <data name="lblYouTubeVideosEmptyText.Text" xml:space="preserve">
+    <value>There are no youtube videos available</value>
+  </data>
+  <data name="lblApprovedCommentSubmissionText.Help" xml:space="preserve">
+    <value>This will be a message when a comment has been posted on the site during the comment form submission (for auto approved comment)</value>
+  </data>
+  <data name="lblApprovedCommentSubmissionText.Text" xml:space="preserve">
+    <value>Approved Comment Submission Message</value>
+  </data>
+  <data name="lblCommentNoOfPaging.Help" xml:space="preserve">
+    <value>This will be the no of paging</value>
+  </data>
+  <data name="lblCommentNoOfPaging.Text" xml:space="preserve">
+    <value>No of Paging</value>
+  </data>
+  <data name="lblCommentTemplate.Help" xml:space="preserve">
+    <value>This will be the comment template</value>
+  </data>
+  <data name="lblCommentTemplate.Text" xml:space="preserve">
+    <value>Comment Template</value>
+  </data>
+  <data name="lblCommentWrapperTemplate.Help" xml:space="preserve">
+    <value>This will be the comment wrapper template</value>
+  </data>
+  <data name="lblCommentWrapperTemplate.Text" xml:space="preserve">
+    <value>Comment Wrapper Template</value>
+  </data>
+  <data name="lblNewCommentSubmissionText.Help" xml:space="preserve">
+    <value>This will be a message when a comment has been posted on the site during the comment form submission (including pending message)</value>
+  </data>
+  <data name="lblNewCommentSubmissionText.Text" xml:space="preserve">
+    <value>New Comment Submission Message</value>
+  </data>
+  <data name="lblNoOfCommentsPerPage.Help" xml:space="preserve">
+    <value>This will be no of comments per page</value>
+  </data>
+  <data name="lblNoOfCommentsPerPage.Text" xml:space="preserve">
+    <value>No of comments per page</value>
+  </data>
+  <data name="lblYouTubeNoOfPaging.Text" xml:space="preserve">
+    <value>No of Paging</value>
+  </data>
+  <data name="lblAddNews.Text" xml:space="preserve">
+    <value>Add Article/News</value>
+  </data>
+  <data name="lblAddNewsSubmissionText.Help" xml:space="preserve">
+    <value>This message will be displayed after an article has been submitted (including auto approved article)</value>
+  </data>
+  <data name="lblAddNewsSubmissionText.Text" xml:space="preserve">
+    <value>Add News Submission Message</value>
+  </data>
+  <data name="lblApprovedNews.Text" xml:space="preserve">
+    <value>Approved Article/News</value>
+  </data>
+  <data name="lblNewsSettings.Text" xml:space="preserve">
+    <value>News Settings</value>
+  </data>
+  <data name="lblPendingNews.Text" xml:space="preserve">
+    <value>Pending Article/News</value>
+  </data>
+  <data name="lblPendingNewsSubmissionText.Help" xml:space="preserve">
+    <value>This message will be displayed after a pending article has been submitted </value>
+  </data>
+  <data name="lblPendingNewsSubmissionText.Text" xml:space="preserve">
+    <value>Pending News Submission Message</value>
+  </data>
+  <data name="lblRolesForAccesingAuthorPanel.Help" xml:space="preserve">
+    <value>This will be the roles that can access author panel module</value>
+  </data>
+  <data name="lblRolesForAccesingAuthorPanel.Text" xml:space="preserve">
+    <value>Roles for Accesing Author Panel</value>
+  </data>
+  <data name="lblRolesForAddingNewsForAuthor.Help" xml:space="preserve">
+    <value>This will be the roles that are allowed to add new article (for Author Panel Module)</value>
+  </data>
+  <data name="lblRolesForAddingNewsForAuthor.Text" xml:space="preserve">
+    <value>Roles For Adding News/Articles (Author Panel Module)</value>
+  </data>
+  <data name="lblRolesForApprovingCommentForAuthor.Help" xml:space="preserve">
+    <value>This will be the roles that can approve the comment (Author Panel Module)</value>
+  </data>
+  <data name="lblRolesForApprovingCommentForAuthor.Text" xml:space="preserve">
+    <value>Roles for Approving Comment (Author Panel Module)</value>
+  </data>
+  <data name="lblRolesForEditingCommentForAuthor.Help" xml:space="preserve">
+    <value>This will be the roles for editing the comment (Author Panel Module)</value>
+  </data>
+  <data name="lblRolesForEditingCommentForAuthor.Text" xml:space="preserve">
+    <value>Roles for Editing Comment (Author Panel Module)</value>
+  </data>
+  <data name="lblRolesForEditingNewsForAuthor.Help" xml:space="preserve">
+    <value>This will be the roles that are allowed to edit article/news (for Author Panel Module)</value>
+  </data>
+  <data name="lblRolesForEditingNewsForAuthor.Text" xml:space="preserve">
+    <value>Roles For Editing News/Articles (Author Panel Module)</value>
+  </data>
+  <data name="lblRolesForViewingDetailsNews.Help" xml:space="preserve">
+    <value>This will be the roles that are allowed to view the news details</value>
+  </data>
+  <data name="lblRolesForViewingDetailsNews.Text" xml:space="preserve">
+    <value>Roles For Viewing Article Details</value>
+  </data>
+  <data name="lblUnauthorizedAccesingAuthorPanel.Help" xml:space="preserve">
+    <value>This message will be displayed if the user doesnt have the access to the author panel message</value>
+  </data>
+  <data name="lblUnauthorizedAccesingAuthorPanel.Text" xml:space="preserve">
+    <value>Unauthorized Accessing Author Panel Message</value>
+  </data>
+  <data name="lblUnauthorizedViewingDetailsNewsText.Help" xml:space="preserve">
+    <value>This message will be displayed if the current user is not allowed to view the article details</value>
+  </data>
+  <data name="lblUnauthorizedViewingDetailsNewsText.Text" xml:space="preserve">
+    <value>Unauthorized Viewing Details Articles/News  Message</value>
+  </data>
+  <data name="lblAutoApproveNewsForAuthor.Help" xml:space="preserve">
+    <value>Tick the roles that will have an automatic approval when adding new article/news</value>
+  </data>
+  <data name="lblAutoApproveNewsForAuthor.Text" xml:space="preserve">
+    <value>Auto Approve for Adding Article/News (Author Panel Module)</value>
+  </data>
+  <data name="lblRolesForDeletingCommentForAuthor.Help" xml:space="preserve">
+    <value>This will be the roles that can delete article comments (Author Panel Module)</value>
+  </data>
+  <data name="lblRolesForDeletingCommentForAuthor.Text" xml:space="preserve">
+    <value>Roles for Deleting Comment (Author Panel Module)</value>
+  </data>
+  <data name="lblRolesforDeletingNewsForAuthor.Help" xml:space="preserve">
+    <value>This will be the roles that can delete the article/news (Author Panel Module)</value>
+  </data>
+  <data name="lblRolesforDeletingNewsForAuthor.Text" xml:space="preserve">
+    <value>Roles for Deleting News/Articles (Author Panel Module)</value>
+  </data>
+  <data name="lblCommentTemplateNote.Text" xml:space="preserve">
+    <value>Available Tokens: [$COMMENTATORNAME], [$COMMENTATOREMAIL], [$COMMENTDATE], [$COMMENT], [$PORTALID], [$IPADDRESS], [$REPLYLINK], [$GOODVOTESLINK], [$BADVOTESLINK]</value>
+  </data>
+  <data name="lblCommentWrapperTemplateNote.Text" xml:space="preserve">
+    <value>Available Tokens: [$PAGINGBAR], [$COMMENTLIST]</value>
+  </data>
+  <data name="lblYouTubePlayerMainTemplateTokens.Text" xml:space="preserve">
+    <value>Available Tokens: [$PAGINGBAR], [$PLAYERTEMPLATE], [$PLAYLISTTEMPLATE]</value>
+  </data>
+  <data name="lblYouTubePlayerTemplateTokens.Text" xml:space="preserve">
+    <value>Available Tokens: [$PLAYER], [$PLAYERWIDTH], [$VIDEORATING], [$VIDEOVOTERS], [$VIDEOVIEWS]</value>
+  </data>
+  <data name="lblYouTubePlayListTemplateTokens.Text" xml:space="preserve">
+    <value>Available Tokens: [$VIDEOIMAGE], [$VIDEOTITLE], [$RATING], [$VOTERS], [$VIEWS], [$AUTHORURL], [$AUTHOR], [$DURATION]</value>
+  </data>
+  <data name="CopyrightTextNote.Text" xml:space="preserve">
+    <value>This will be the default copyright text. Note: the default template does not show up the token, if you want to display the copyright, please include this token [$COPYRIGHT]</value>
+  </data>
+  <data name="lblCopyrightText.Text" xml:space="preserve">
+    <value>Copyright Text</value>
+  </data>
+  <data name="lblAllowToUseAuthorOtherNameForAuthor.Help" xml:space="preserve">
+    <value>This will allow author to use other name</value>
+  </data>
+  <data name="lblAllowToUseAuthorOtherNameForAuthor.Text" xml:space="preserve">
+    <value>Allow author to use other name</value>
+  </data>
+  <data name="lblCopyrightText.Help" xml:space="preserve">
+    <value>This will be the copyright text</value>
+  </data>
+  <data name="lblNoOfImageAllowanceForAuthorPanel.Help" xml:space="preserve">
+    <value>This will be the no of image allowance for author panel. Leave 0 for unlimited upload</value>
+  </data>
+  <data name="lblNoOfImageAllowanceForAuthorPanel.Text" xml:space="preserve">
+    <value>No of Image allowance for Author Panel Module</value>
+  </data>
+  <data name="lblNoOfYoutubeAllowanceForAuthorPanel.Help" xml:space="preserve">
+    <value>This will be the no of youtube vidoe allowance for author panel module</value>
+  </data>
+  <data name="lblNoOfYoutubeAllowanceForAuthorPanel.Text" xml:space="preserve">
+    <value>No of Youtube videos allowance for Author Panel Module</value>
+  </data>
+  <data name="NoOfImageAllowanceForAuthorPanelNote.Text" xml:space="preserve">
+    <value>Enter 0 for unlimited images</value>
+  </data>
+  <data name="NoOfYoutubeAllowanceForAuthorPanelNote.Text" xml:space="preserve">
+    <value>Enter 0 for unlimited youtube videos</value>
+  </data>
+  <data name="lblCommentPopUpTheme.Help" xml:space="preserve">
+    <value>This will be the pretty photo comment pop up theme</value>
+  </data>
+  <data name="lblCommentPopUpTheme.Text" xml:space="preserve">
+    <value>Comment Pop Up Theme</value>
+  </data>
+  <data name="btnLoadDefaultCommentTemplate.Text" xml:space="preserve">
+    <value>Load Default Comment Template</value>
+  </data>
+  <data name="btnLoadDefaultYoutubeTemplate.Text" xml:space="preserve">
+    <value>Load Default Youtube Template</value>
+  </data>
+</root>

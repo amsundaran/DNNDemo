@@ -1,0 +1,8 @@
+10:07:53.582 | Errors | 8c9484b8 | avt.Action Form #676 | Access denied!
+(error type System.UnauthorizedAccessException, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)
+   at DnnSharp.Common.Api.ApiContext.Execute(IHttpHandler handler, HttpContext httpContext, Action`2 log)
+
+10:07:53.745 | Errors | 32d177f2 | avt.Action Form #676 | Access denied!
+(error type System.UnauthorizedAccessException, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)
+   at DnnSharp.Common.Api.ApiContext.Execute(IHttpHandler handler, HttpContext httpContext, Action`2 log)
+

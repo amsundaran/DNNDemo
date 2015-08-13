@@ -1,0 +1,152 @@
+﻿/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetNewsStatistics
+	@PageIndex int,
+	@PageSize int,
+	@SortField nvarchar(200),
+	@SortOrder char(50),
+	@query ntext
+AS
+	CREATE Table #TempTable(
+		ID int IDENTITY PRIMARY KEY,
+		SID int,
+		Hits int
+	)
+	
+	INSERT INTO #TempTable(
+		SID,
+		Hits
+	)
+	EXEC('SELECT N.NewsID, SUM(NS.Hits) AS Hits FROM {objectQualifier}DNNInfo_News_NewsStatistics NS LEFT JOIN {objectQualifier}DNNInfo_News_News N ON N.NewsID = NS.NewsID WHERE NS.StatisticID > 0 ' + @Query  + ' GROUP BY N.NewsID ORDER BY ' + @SortField + ' ' + @SortOrder)
+	
+	DECLARE @FirstRec int, @LastRec int
+	SELECT @FirstRec = (@PageIndex - 1) * @PageSize
+	SELECT @LastRec = (@PageIndex * @PageSize + 1)
+	DECLARE @sFirstRec nvarchar(50), @sLastRec nvarchar(50)
+	SET @sFirstRec = CONVERT(nvarchar,@FirstRec)
+	SET @sLastRec = CONVERT(nvarchar,@LastRec)
+
+	EXEC('SELECT N.PortalID, N.NewsID, N.Title, SUM(NS.Hits) AS Hits FROM {objectQualifier}DNNInfo_News_NewsStatistics NS LEFT JOIN {objectQualifier}DNNInfo_News_News N ON N.NewsID = NS.NewsID INNER JOIN  #TempTable TT ON NS.NewsID = TT.SID  WHERE Id > ' + @sFirstRec + ' AND Id < ' +  @sLastRec + '  ' + @Query  + ' GROUP BY N.PortalID, N.NewsID, N.Title ORDER BY ' + @SortField + ' ' + @SortOrder)
+GO
+
+
+/****************************** COMMENTS TABLE ************************************/
+ALTER TABLE {databaseOwner}{objectQualifier}DNNInfo_News_Comments
+	ADD [GoodVotes] int DEFAULT(0),
+	[BadVotes] int DEFAULT(0),
+	[ReplyLevel] int DEFAULT(0)
+GO
+
+UPDATE {databaseOwner}{objectQualifier}DNNInfo_News_Comments
+	SET GoodVotes = 0,
+	BadVotes = 0,
+	ReplyLevel = 0
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_NewComment
+    @PortalID int,
+    @NewsID int,
+    @UserID int,
+    @ReplyCommentID int,
+    @AnonymousName nvarchar(100) ,
+    @AnonymousEmail nvarchar(100),
+	@Comment ntext,
+	@Approved bit ,
+    @IPAddress nvarchar(50) ,
+    @CommentDate datetime,
+    @GoodVotes int,
+	@BadVotes int, 
+	@ReplyLevel int
+AS
+	INSERT INTO {objectQualifier}DNNInfo_News_Comments(
+		NewsID ,
+		PortalID ,
+		UserID ,
+		ReplyCommentID ,
+		AnonymousName  ,
+		AnonymousEmail ,
+		Comment ,
+		Approved  ,
+		IPAddress ,
+		CommentDate ,
+		GoodVotes ,
+		BadVotes , 
+		ReplyLevel 
+	)VALUES(
+		@NewsID ,
+		@PortalID ,
+		@UserID ,
+		@ReplyCommentID ,
+		@AnonymousName  ,
+		@AnonymousEmail ,
+		@Comment ,
+		@Approved  ,
+		@IPAddress ,
+		@CommentDate ,
+		@GoodVotes ,
+		@BadVotes , 
+		@ReplyLevel 
+	)
+	
+	SELECT SCOPE_IDENTITY()
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_UpdateComment
+    @CommentID int,
+    @PortalID int,
+    @NewsID int,
+    @UserID int,
+    @ReplyCommentID int,
+    @AnonymousName nvarchar(100) ,
+    @AnonymousEmail nvarchar(100),
+	@Comment ntext,
+	@Approved bit ,
+    @IPAddress nvarchar(50) ,
+    @CommentDate datetime,
+    @GoodVotes int,
+	@BadVotes int, 
+	@ReplyLevel int
+AS
+	UPDATE {objectQualifier}DNNInfo_News_Comments
+	SET UserID = @UserID ,
+	NewsID = @NewsID,
+	PortalID = @PortalID,
+	ReplyCommentID = @ReplyCommentID,
+    AnonymousName = @AnonymousName  ,
+    AnonymousEmail =  @AnonymousEmail ,
+    Comment = @Comment ,
+	Approved = @Approved ,
+	IPAddress = @IPAddress  ,
+    CommentDate = @CommentDate,
+    GoodVotes = @GoodVotes ,
+	BadVotes = @BadVotes , 
+	ReplyLevel = @ReplyLevel 
+    Where CommentID = @CommentID
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetComment
+	-- Add the parameters for the stored procedure here
+	@CommentID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT CM.*, U.FirstName, U.LastName, U.DisplayName, U.Email, N.Title FROM {objectQualifier}DNNInfo_News_Comments CM
+	LEFT JOIN {objectQualifier}Users U ON CM.UserID = U.UserID
+	INNER JOIN {objectQualifier}DNNInfo_News_News N ON CM.NewsID = N.NewsID
+	WHERE CommentID = @CommentID And CM.Deleted = 0
+	
+END
+
+GO

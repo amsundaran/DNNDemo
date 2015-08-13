@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Body.Text" xml:space="preserve">
+    <value>Append to end of Body</value>
+  </data>
+  <data name="Category.Help" xml:space="preserve">
+    <value>The Category is provided to Analytics and will show up in the Analytics reports to categorise different events.</value>
+  </data>
+  <data name="CategoryHdr.Help" xml:space="preserve">
+    <value>The Category is a value provided to the Analytics tracking script to classify the tracked event as a category.  It will appear in the analytics reports.</value>
+  </data>
+  <data name="CategoryHdr.Text" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="CreateNewTrackedLink.Text" xml:space="preserve">
+    <value>Manually Create Tracked Link</value>
+  </data>
+  <data name="EditHdr.Help" xml:space="preserve">
+    <value>Click on item to change configuration</value>
+  </data>
+  <data name="EditHdr.Text" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Event.Help" xml:space="preserve">
+    <value>The Event is a value which uniquely identifies an Event across the site, and is used in the Analytics reports</value>
+  </data>
+  <data name="EventHdr.Help" xml:space="preserve">
+    <value>The Event is a value provided to the Analytics tracking script to classify the tracked event by name.  It will appear in the analytics reports.</value>
+  </data>
+  <data name="EventHdr.Text" xml:space="preserve">
+    <value>Event</value>
+  </data>
+  <data name="ExtraScriptLocationBody.Text" xml:space="preserve">
+    <value>Script in &amp;lt;body&amp;gt; of page</value>
+  </data>
+  <data name="ExtraScriptLocationHead.Text" xml:space="preserve">
+    <value>Script in &amp;lt;head&amp;gt; of page</value>
+  </data>
+  <data name="Head.Text" xml:space="preserve">
+    <value>Append to Analytics Script in Head</value>
+  </data>
+  <data name="IdentifyTrackedLinks.Text" xml:space="preserve">
+    <value>Identify Links to Track</value>
+    <comment>.</comment>
+  </data>
+  <data name="IdentifyTrackedLinksStop.Text" xml:space="preserve">
+    <value>Stop identifying links</value>
+  </data>
+  <data name="Label.Help" xml:space="preserve">
+    <value>The Label is a value which identifies a particular instance of an Event, and is used in Analytics reports.  A Label value is used for each click that is tracked on the page.</value>
+  </data>
+  <data name="LabelHdr.Help" xml:space="preserve">
+    <value>The Label is a value provided to the Analytics tracking script to provide a label to an event.  The Label appears in the Analytics reports, and is used to track individual data items for a given Category and Event.  If the tracked event uses a jQuery selector to identify the label, the jQuery statement is shown instead of the value.</value>
+  </data>
+  <data name="LabelHdr.Text" xml:space="preserve">
+    <value>Label</value>
+  </data>
+  <data name="LabelSelector.Help" xml:space="preserve">
+    <value>The Label selector is a jQuery selector used to locate a Html DOM element associated with the event click.  This value is then used as the 'Label'.  If you wish to use a Label Selector (to provide a context-specific Label) then leave the 'Label' field empty, and provide a Selector.</value>
+  </data>
+  <data name="LabelSelector.Text" xml:space="preserve">
+    <value>Label Selector:</value>
+  </data>
+  <data name="LinkDialogTitle.Text" xml:space="preserve">
+    <value>Tracked Link</value>
+  </data>
+  <data name="MatchType.Help" xml:space="preserve">
+    <value>The Match Type specifies how to match page elements with the 'Match Value'</value>
+  </data>
+  <data name="MatchTypeHdr.Help" xml:space="preserve">
+    <value>The Match type determines what type of match will be used to identify a clicked item on the page.  'text' means that the link will be matched by the text value of the link.  'id' means it will be matched by the Html id tag of the link.  'CssClass' means the item will be matched by having a matching css class.</value>
+  </data>
+  <data name="MatchTypeHdr.Text" xml:space="preserve">
+    <value>Match Type</value>
+  </data>
+  <data name="MatchValue.Help" xml:space="preserve">
+    <value>The Link Match Value is the value matched against elements on the page, to link a page element with an Event</value>
+  </data>
+  <data name="MatchValueHdr.Help" xml:space="preserve">
+    <value>The Match value determines what will be compared with on elements on the page.  The Match Value comparison is determined by the 'Match Type'</value>
+  </data>
+  <data name="MatchValueHdr.Text" xml:space="preserve">
+    <value>Match Value</value>
+  </data>
+  <data name="ModuleSettingsLink.Text" xml:space="preserve">
+    <value>Change Settings</value>
+  </data>
+  <data name="PortalExtraScript.Text" xml:space="preserve">
+    <value>Site Specific Extra Script</value>
+  </data>
+  <data name="PortalExtraScriptLabel.Text" xml:space="preserve">
+    <value>Script to insert</value>
+  </data>
+  <data name="PortalExtraScriptPosition.Text" xml:space="preserve">
+    <value>Script injection location</value>
+  </data>
+  <data name="PortalExtraScriptSave.Text" xml:space="preserve">
+    <value>Save Portal Script</value>
+  </data>
+  <data name="SaveEventTargets.Text" xml:space="preserve">
+    <value>Save Tracking Events</value>
+  </data>
+  <data name="SaveSuccess.Text" xml:space="preserve">
+    <value>Saved Changes OK</value>
+  </data>
+  <data name="ServerError.Text" xml:space="preserve">
+    <value>Server Error:</value>
+  </data>
+  <data name="ServerErrorWithDescription.Text" xml:space="preserve">
+    <value>Server Error:</value>
+  </data>
+  <data name="SettingsConfigured.Text" xml:space="preserve">
+    <value>Configured for Analytics account {0}</value>
+  </data>
+  <data name="SettingsNotConfigured.Text" xml:space="preserve">
+    <value>No Analytics account Information Entered.  Analytics tracking not active.</value>
+  </data>
+  <data name="TabExtraScript.Text" xml:space="preserve">
+    <value>Page Specific Extra Script</value>
+  </data>
+  <data name="TabExtraScriptSave.Text" xml:space="preserve">
+    <value>Save Page Script</value>
+  </data>
+  <data name="TestLinkTracking.Text" xml:space="preserve">
+    <value>Test tracked links</value>
+  </data>
+  <data name="TestLinkTrackingStop.Text" xml:space="preserve">
+    <value>Stop testing links</value>
+  </data>
+  <data name="TrackingSettings.Text" xml:space="preserve">
+    <value>Tracking Settings</value>
+  </data>
+  <data name="Value.Help" xml:space="preserve">
+    <value>The Value is a numeric value which is provided to the Analytics reports, and which is collated and averaged for the Event reporting.</value>
+  </data>
+  <data name="ValueHdr.Help" xml:space="preserve">
+    <value>The Value is a numeric value provided to the Analytics tracking script to provide a value to an event.  The Value appears in the Analytics reports, and is used to track individual data items for a given Category and Event.  If the tracked event uses a jQuery selector to identify the Value, the jQuery statement is shown instead of the value.</value>
+  </data>
+  <data name="ValueHdr.Text" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="ValueSelector.Help" xml:space="preserve">
+    <value>The Value selector is a jQuery selector used to locate a Html DOM element associated with the event click.  This value is then used as the 'Value'.  The result of the selector must be a numeric value.  If you wish to use a Value Selector (to provide a context-specific Value) then leave the 'Value' field empty, and provide a Selector.</value>
+  </data>
+</root>

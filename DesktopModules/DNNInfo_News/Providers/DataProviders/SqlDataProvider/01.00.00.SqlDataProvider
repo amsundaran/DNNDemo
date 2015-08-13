@@ -1,0 +1,1687 @@
+﻿/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+/****************************** CATEGORIES ************************************/
+if not exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_Categories]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	BEGIN
+		CREATE TABLE {databaseOwner}[{objectQualifier}DNNInfo_News_Categories]
+		(
+			[CategoryID] [int] IDENTITY(1,1) NOT NULL ,
+	        [CategoryPortalID] [int] NULL ,
+	        [CategoryName] [nvarchar] (100) ,
+	        [CategoryParentID] [int] NULL DEFAULT(0),
+	        [CategoryLevel] [int] NULL DEFAULT(0),
+	        [CategorySortOrder] [int] NULL DEFAULT(0),
+	        [CategoryShortDescription] ntext ,
+	        [CategoryDescription] ntext ,
+	        [CategorySEOTitle] [nvarchar] (500) ,
+	        [CategorySEODescription] ntext ,
+	        [CategorySEOKeyword] [nvarchar] (500) ,
+	        [CategoryImage] [nvarchar](100) NULL,
+	        [CategoryDeleted] [bit] NULL DEFAULT(0),
+	        [CategoryCreatedDate] [datetime] NULL ,
+	        [CategoryUpdatedDate] [datetime] NULL ,
+	        [CategoryTabID] [int] DEFAULT(0),
+	        [CategoryURL] [nvarchar] (500)
+		)
+
+		ALTER TABLE {databaseOwner}[{objectQualifier}DNNInfo_News_Categories] ADD CONSTRAINT [PK_{objectQualifier}DNNInfo_News_Categories] PRIMARY KEY NONCLUSTERED  ([CategoryID])
+
+	END
+GO
+
+
+/** Drop Existing Stored Procedures **/
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_NewCategory]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_NewCategory
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_UpdateCategory]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_UpdateCategory
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_DeleteCategory]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_DeleteCategory
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetCategories]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetCategories
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetCategory]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetCategory
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetTotalCategories]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetTotalCategories
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetParentCategories]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetParentCategories
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetCategoriesByParentID]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetCategoriesByParentID
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_NewCategory
+    @CategoryPortalID INT,
+    @CategoryName nvarchar(100),
+    @CategoryParentID INT,
+    @CategoryLevel INT,
+    @CategorySortOrder INT,
+    @CategoryShortDescription ntext,
+    @CategoryDescription ntext,
+    @CategorySEOTitle nvarchar(500),
+    @CategorySEODescription ntext,
+    @CategorySEOKeyword nvarchar(2000),
+    @CategoryImage nvarchar(100),
+    @CategoryCreatedDate DateTime,
+    @CategoryUpdatedDate DateTime,
+    @CategoryTabID INT,
+    @CategoryURL nvarchar(500)
+AS
+	INSERT INTO {objectQualifier}DNNInfo_News_Categories(
+		CategoryPortalID ,
+		CategoryName ,
+		CategoryParentID ,
+		CategoryLevel ,
+		CategorySortOrder ,
+		CategoryShortDescription ,
+		CategoryDescription ,
+		CategorySEOTitle ,
+		CategorySEODescription ,
+		CategorySEOKeyword ,
+		CategoryImage ,
+		CategoryCreatedDate ,
+		CategoryUpdatedDate ,
+		CategoryTabID ,
+		CategoryURL 
+	)VALUES(
+		@CategoryPortalID ,
+		@CategoryName ,
+		@CategoryParentID ,
+		@CategoryLevel ,
+		@CategorySortOrder ,
+		@CategoryShortDescription ,
+		@CategoryDescription ,
+		@CategorySEOTitle ,
+		@CategorySEODescription ,
+		@CategorySEOKeyword ,
+		@CategoryImage ,
+		@CategoryCreatedDate ,
+		@CategoryUpdatedDate ,
+		@CategoryTabID ,
+		@CategoryURL 
+	)
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_UpdateCategory
+	@CategoryID INT,
+    @CategoryPortalID INT,
+    @CategoryName nvarchar(100),
+    @CategoryParentID INT,
+    @CategoryLevel INT,
+    @CategorySortOrder INT,
+    @CategoryShortDescription ntext,
+    @CategoryDescription ntext,
+    @CategorySEOTitle nvarchar(500),
+    @CategorySEODescription ntext,
+    @CategorySEOKeyword nvarchar(2000),
+    @CategoryImage nvarchar(100),
+    @CategoryUpdatedDate DateTime,
+    @CategoryTabID INT,
+    @CategoryURL nvarchar(500)
+AS
+	UPDATE {objectQualifier}DNNInfo_News_Categories
+	SET CategoryName = @CategoryName ,
+		CategoryParentID = @CategoryParentID,	
+		CategoryLevel = @CategoryLevel,
+		CategorySortOrder = @CategorySortOrder,
+		CategoryShortDescription = @CategoryShortDescription,
+		CategoryDescription = @CategoryDescription,
+		CategorySEOTitle  = @CategorySEOTitle ,
+		CategorySEODescription  = @CategorySEODescription ,
+		CategorySEOKeyword = @CategorySEOKeyword,
+		CategoryImage = @CategoryImage,
+		CategoryUpdatedDate = @CategoryUpdatedDate,
+		CategoryTabID = @CategoryTabID,
+		CategoryURL = @CategoryURL
+	WHERE CategoryID = @CategoryID AND CategoryPortalID = @CategoryPortalID
+	
+GO
+
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_DeleteCategory
+	@CategoryID int
+AS
+	UPDATE {objectQualifier}DNNInfo_News_Categories
+	SET CategoryDeleted = 1 WHERE CategoryID = @CategoryID
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetCategory
+	-- Add the parameters for the stored procedure here
+	@CategoryID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT C.*, CP.CategoryName As CategoryParentName FROM {objectQualifier}DNNInfo_News_Categories C
+	LEFT JOIN {objectQualifier}DNNInfo_News_Categories CP ON C.CategoryParentID = CP.CategoryID
+	WHERE C.CategoryID = @CategoryID AND C.CategoryDeleted = 0
+	
+END
+GO
+
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetCategories
+	@PageIndex int,
+	@PageSize int,
+	@SortField nvarchar(200),
+	@SortOrder char(50),
+	@query ntext
+AS
+	CREATE Table #TempTable(
+		ID int IDENTITY PRIMARY KEY,
+		CID int
+	)
+	
+	INSERT INTO #TempTable(
+		CID
+	)
+	EXEC('SELECT C.CategoryID FROM {objectQualifier}DNNInfo_News_Categories C WHERE C.CategoryDeleted = 0 ' + @Query  + ' ORDER BY C.' + @SortField + ' ' + @SortOrder)
+
+	DECLARE @FirstRec int, @LastRec int
+	SELECT @FirstRec = (@PageIndex - 1) * @PageSize
+	SELECT @LastRec = (@PageIndex * @PageSize + 1)
+	DECLARE @sFirstRec nvarchar(50), @sLastRec nvarchar(50)
+	SET @sFirstRec = CONVERT(nvarchar,@FirstRec)
+	SET @sLastRec = CONVERT(nvarchar,@LastRec)
+
+	EXEC('SELECT C.*, CP.CategoryName As CategoryParentName FROM {objectQualifier}DNNInfo_News_Categories C 
+	LEFT JOIN {objectQualifier}DNNInfo_News_Categories CP ON C.CategoryParentID = CP.CategoryID 
+	INNER JOIN #TempTable TT ON C.CategoryID = TT.CID 
+	WHERE Id > ' + @sFirstRec + ' AND Id < ' +  @sLastRec
+	+ ' AND C.CategoryDeleted = 0 '  + @Query + ' ORDER BY C.' + @SortField + ' ' + @SortOrder )
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetTotalCategories
+	-- Add the parameters for the stored procedure here
+	@query ntext
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	EXEC('SELECT Count(*) AS Total FROM {objectQualifier}DNNInfo_News_Categories C INNER JOIN {objectQualifier}DNNInfo_News_Categories CP ON C.CategoryID = CP.CategoryID WHERE  C.CategoryDeleted = 0 '
+	+ @Query )
+END
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetParentCategories
+	-- Add the parameters for the stored procedure here
+	@CategoryLevel int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT C.*, CP.CategoryName As CategoryParentName FROM {objectQualifier}DNNInfo_News_Categories C 
+	LEFT JOIN {objectQualifier}DNNInfo_News_Categories CP
+	ON C.CategoryParentID = CP.CategoryID
+	WHERE C.CategoryLevel = @CategoryLevel AND C.CategoryDeleted = 0 ORDER BY C.CategorySortOrder, C.CategoryName
+END
+
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetCategoriesByParentID
+	-- Add the parameters for the stored procedure here
+	@CategoryParentID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT C.*, CP.CategoryName As CategoryParentName FROM {objectQualifier}DNNInfo_News_Categories C 
+	LEFT JOIN {objectQualifier}DNNInfo_News_Categories CP
+	ON C.CategoryParentID = CP.CategoryID
+	WHERE C.CategoryParentID = @CategoryParentID AND C.CategoryDeleted = 0 ORDER BY C.CategorySortOrder, C.CategoryName
+END
+GO
+
+/****************************** END OF CATEGORIES ************************************/
+
+/****************************** SETTINGS ****************************************/
+if not exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_Settings]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	BEGIN
+		CREATE TABLE {databaseOwner}[{objectQualifier}DNNInfo_News_Settings]
+		(
+			[SettingID] [int] IDENTITY(1,1) NOT NULL ,
+	        [SettingPortalID] [int] NULL ,
+	        [SettingName] [nvarchar] (100) ,
+	        [SettingValue] ntext 
+		)
+
+		ALTER TABLE {databaseOwner}[{objectQualifier}DNNInfo_News_Settings] ADD CONSTRAINT [PK_{objectQualifier}DNNInfo_News_Settings] PRIMARY KEY NONCLUSTERED  ([SettingID])
+
+	END
+GO
+
+/** Drop Existing Stored Procedures **/
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_UpdateSetting]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_UpdateSetting
+GO
+
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_DeleteSetting]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_DeleteSetting
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetSetting]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetSetting
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetDNNInfoModuleTabID]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetDNNInfoModuleTabID
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetDNNInfoModuleTabIDs]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetDNNInfoModuleTabIDs
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_UpdateSetting
+	@SettingPortalID int,
+	@SettingName nvarchar(50),
+	@SettingValue ntext
+AS
+	DECLARE @ID INT
+	SELECT @ID = SettingID FROM {objectQualifier}DNNInfo_News_Settings
+	WHERE SettingName = @SettingName AND SettingPortalID = @SettingPortalID
+	
+	IF @ID > 0 
+		BEGIN
+			UPDATE {objectQualifier}DNNInfo_News_Settings
+			SET SettingValue = @SettingValue
+			WHERE SettingID = @ID
+		END 
+	ELSE
+		BEGIN
+			INSERT INTO {objectQualifier}DNNInfo_News_Settings(
+				SettingPortalID,
+				SettingName,
+				SettingValue
+			)VALUES(
+				@SettingPortalID,
+				@SettingName,
+				@SettingValue
+			)
+		END 
+GO
+
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_DeleteSetting
+	-- Add the parameters for the stored procedure here
+	@SettingPortalID int,
+	@SettingName nvarchar(50)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	DELETE FROM {objectQualifier}DNNInfo_News_Settings
+	WHERE SettingPortalID = @SettingPortalID AND SettingName = @SettingName
+ 
+END
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetSetting
+	-- Add the parameters for the stored procedure here
+	@settingPortalID int,
+	@SettingName nvarchar(50)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT * FROM {objectQualifier}DNNInfo_News_Settings
+	WHERE settingPortalID = @settingPortalID And SettingName = @SettingName
+ 
+END
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetDNNInfoModuleTabID
+	@PortalID INT,
+	@defModuleName nvarchar(50)
+AS
+	DECLARE @MID INT
+	SELECT @MID = ModuleDefID FROM {objectQualifier}ModuleDefinitions
+	WHERE FriendlyName =@defModuleName
+	
+	
+	IF @MID > 0
+		BEGIN
+		DECLARE @SQL nvarchar(3000)
+		
+		IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{objectQualifier}TabModules' AND COLUMN_NAME = 'IsDeleted')
+			BEGIN
+			  SET @SQL = 'SELECT TOP 1 TabID FROM {objectQualifier}TabModules TM INNER JOIN {objectQualifier}MODULES M ON TM.ModuleID = M.ModuleID WHERE M.ModuleDefID = ' + CONVERT(nvarchar,@MID) + ' AND M.PortalID = ' + CONVERT(nvarchar,@PortalID)
+			END
+		ELSE
+			BEGIN
+			  SET @SQL = 'SELECT TOP 1 TabID FROM {objectQualifier}TabModules TM INNER JOIN {objectQualifier}MODULES M ON TM.ModuleID = M.ModuleID WHERE M.ModuleDefID = ' + CONVERT(nvarchar,@MID) + ' AND M.PortalID = ' + CONVERT(nvarchar,@PortalID) + ' AND TM.IsDeleted = 0 '
+			END
+		END
+		
+		EXEC(@SQL)
+GO
+
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetDNNInfoModuleTabIDs
+	@PortalID INT,
+	@defModuleName nvarchar(50)
+AS
+	DECLARE @MID INT
+	SELECT @MID = ModuleDefID FROM {objectQualifier}ModuleDefinitions
+	WHERE FriendlyName =@defModuleName
+
+	IF @MID > 0
+		DECLARE @SQL nvarchar(3000)
+		
+		IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{objectQualifier}TabModules' AND COLUMN_NAME = 'IsDeleted')
+			BEGIN
+				SET @SQL = 'SELECT TM.TabModuleID, TM.TabID, T.TabName, TM.ModuleID, MD.FriendlyName AS ModuleFriendlyName
+				FROM {objectQualifier}TabModules AS TM INNER JOIN {objectQualifier}Modules AS M ON TM.ModuleID = M.ModuleID INNER JOIN {objectQualifier}ModuleDefinitions AS MD ON M.ModuleDefID = MD.ModuleDefID INNER JOIN {objectQualifier}Tabs T ON TM.TabId = T.TabId WHERE M.ModuleDefID = ' + CONVERT(nvarchar,@MID) + ' AND M.PortalID = ' + CONVERT(nvarchar,@PortalID) + ' Order BY TM.TabID ASC '
+			END
+		ELSE
+			BEGIN
+				SET @SQL = 'SELECT TM.TabModuleID, TM.TabID, T.TabName, TM.ModuleID, MD.FriendlyName AS ModuleFriendlyName
+				FROM {objectQualifier}TabModules AS TM INNER JOIN {objectQualifier}Modules AS M ON TM.ModuleID = M.ModuleID INNER JOIN {objectQualifier}ModuleDefinitions AS MD ON M.ModuleDefID = MD.ModuleDefID INNER JOIN {objectQualifier}Tabs T ON TM.TabId = T.TabId WHERE M.ModuleDefID = ' + CONVERT(nvarchar,@MID) + ' AND M.PortalID = ' + CONVERT(nvarchar,@PortalID) + ' AND TM.IsDeleted = 0 Order BY TM.TabID ASC '
+			END
+		
+	EXEC(@SQL)
+GO
+
+/****************************** END SETTINGS ************************************/
+
+
+
+/****************************** News ************************************/
+if not exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_News]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	BEGIN
+		CREATE TABLE {databaseOwner}[{objectQualifier}DNNInfo_News_News]
+		(
+			[NewsID] [int] IDENTITY(1,1) NOT NULL ,
+	        [PortalID] [int] DEFAULT(0) ,
+	        [UserID] [int] DEFAULT(0) ,
+	        [Title] [nvarchar] (1000) ,
+	        [CategoryIDs] [nvarchar] (1000),
+	        [ShortDescription] ntext,
+			[Description] ntext,
+			[Keywords] [nvarchar] (1000),
+	        [MetaTitle] [nvarchar] (1000) ,
+	        [MetaDescription] [nvarchar] (1000) ,
+	        [MetaKeyword] [nvarchar] (1000) ,
+	        [NewsImage] [nvarchar] (100) ,
+	        [NoOfRatings] [int] DEFAULT(0) ,
+	        [NoOfComments] [int] DEFAULT(0) ,
+	        [NoOfViews] [int] DEFAULT(0) ,
+	        [RatingValue] [float] DEFAULT(0) ,
+	        [Featured] [bit] DEFAULT(0) ,
+	        [Draft] [bit] DEFAULT(0) ,
+	        [Published] [bit] DEFAULT(0) ,
+	        [Active] [bit] DEFAULT(0) ,
+	        [Deleted] [bit] DEFAULT(0) ,
+	        [Archived] [bit] DEFAULT(0) ,
+	        [AddedDate] [DateTime] NULL ,
+	        [UpdatedDate] [DateTime] NULL ,
+	        [PublishedDate] [DateTime] NULL ,
+	        [ExpiredDate] [DateTime] NULL ,
+	        [ArchivedDate] [DateTime] NULL,
+	        [NewsURL] [nvarchar] (500)
+		)
+
+		ALTER TABLE {databaseOwner}[{objectQualifier}DNNInfo_News_News] ADD CONSTRAINT [PK_{objectQualifier}DNNInfo_News_News] PRIMARY KEY NONCLUSTERED  ([NewsID])
+
+	END
+GO
+
+
+/** Drop Existing Stored Procedures **/
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_UpdateNews]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_UpdateNews
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetDraftNews]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetDraftNews
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_DeleteNews]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_DeleteNews
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetNewsByNewsID]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetNewsByNewsID
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetNews]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetNews
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetTotalNews]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetTotalNews
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_UpdateNews
+    @NewsID int,
+    @PortalID int,
+    @UserID int,
+    @Title nvarchar(1000) ,
+    @CategoryIDs nvarchar(1000),
+    @ShortDescription ntext,
+	@Description ntext,
+	@Keywords nvarchar(1000) ,
+    @MetaTitle nvarchar(1000) ,
+    @MetaDescription nvarchar(1000) ,
+    @MetaKeyword nvarchar(1000) ,
+    @NewsImage nvarchar(100) ,
+    @NoOfRatings int,
+    @NoOfComments int,
+    @NoOfViews int,
+    @RatingValue float,
+    @Featured bit,
+    @Draft bit,
+    @Published bit,
+    @Active bit,
+    @Archived bit,
+    @AddedDate DateTime ,
+    @UpdatedDate DateTime ,
+    @PublishedDate DateTime ,
+    @ExpiredDate DateTime ,
+    @ArchivedDate DateTime,
+    @NewsURL nvarchar(500)
+AS
+	UPDATE {objectQualifier}DNNInfo_News_News
+	SET UserID = @UserID ,
+    Title = @Title  ,
+    CategoryIDs =  @CategoryIDs ,
+    ShortDescription = @ShortDescription ,
+	Description = @Description ,
+	Keywords = @Keywords  ,
+    MetaTitle = @MetaTitle  ,
+    MetaDescription = @MetaDescription  ,
+    MetaKeyword = @MetaKeyword  ,
+    NewsImage = @NewsImage  ,
+    NoOfRatings = @NoOfRatings ,
+    NoOfComments = @NoOfComments ,
+    NoOfViews = @NoOfViews,
+    RatingValue = @RatingValue ,
+    Featured = @Featured ,
+    Draft = @Draft ,
+    Published = @Published ,
+    Active = @Active ,
+    Archived = @Archived ,
+    AddedDate = @AddedDate  ,
+    UpdatedDate = @UpdatedDate  ,
+    PublishedDate = @PublishedDate  ,
+    ExpiredDate = @ExpiredDate  ,
+    ArchivedDate = @ArchivedDate  ,
+    NewsURL = @NewsURL
+    Where PortalID = @PortalID AND NewsID = @NewsID
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetDraftNews
+	@PortalID INT,
+	@UserID INT
+AS
+	DECLARE @ID INT
+	SELECT TOP 1 @ID = NewsID FROM {objectQualifier}DNNInfo_News_News N
+	LEFT JOIN {objectQualifier}Users U ON N.UserID = U.UserID
+	WHERE N.UserID = @UserID AND Draft = 1 And PortalID = @PortalID
+	ORDER BY NewsID DESC
+	
+	IF @ID IS NULL
+		BEGIN
+			INSERT INTO {objectQualifier}DNNInfo_News_News(
+				PortalID,
+				UserID,
+				Draft
+			)VALUES(
+				@PortalID,
+				@UserID,
+				1
+			)
+		END
+		
+	SELECT TOP 1 * FROM {objectQualifier}DNNInfo_News_News N
+	LEFT JOIN {objectQualifier}Users U ON N.UserID = U.UserID
+	WHERE N.UserID = @UserID AND Draft = 1 And PortalID = @PortalID
+	ORDER BY NewsID DESC
+	
+GO
+
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_DeleteNews
+	@NewsID int
+AS
+	UPDATE {objectQualifier}DNNInfo_News_News
+	SET Deleted = 1 WHERE NewsID = @NewsID
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetNewsByNewsID
+	-- Add the parameters for the stored procedure here
+	@NewsID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT * FROM {objectQualifier}DNNInfo_News_News N
+	LEFT JOIN {objectQualifier}Users U ON N.UserID = U.UserID
+	WHERE NewsID = @NewsID And Deleted = 0
+	
+END
+GO
+
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetNews
+	@PageIndex int,
+	@PageSize int,
+	@SortField nvarchar(200),
+	@SortOrder char(50),
+	@query ntext
+AS
+	CREATE Table #TempTable(
+		ID int IDENTITY PRIMARY KEY,
+		NID int
+	)
+	
+	INSERT INTO #TempTable(
+		NID
+	)
+	EXEC('SELECT N.NewsID FROM {objectQualifier}DNNInfo_News_News N WHERE N.Deleted = 0 ' + @Query  + ' ORDER BY ' + @SortField + ' ' + @SortOrder)
+
+	DECLARE @FirstRec int, @LastRec int
+	SELECT @FirstRec = (@PageIndex - 1) * @PageSize
+	SELECT @LastRec = (@PageIndex * @PageSize + 1)
+	DECLARE @sFirstRec nvarchar(50), @sLastRec nvarchar(50)
+	SET @sFirstRec = CONVERT(nvarchar,@FirstRec)
+	SET @sLastRec = CONVERT(nvarchar,@LastRec)
+
+	EXEC('SELECT N.*, U.* FROM {objectQualifier}DNNInfo_News_News N 
+	LEFT JOIN {objectQualifier}Users U ON N.UserID = U.UserID 
+	INNER JOIN #TempTable TT ON N.NewsID = TT.NID 
+	WHERE Id > ' + @sFirstRec + ' AND Id < ' +  @sLastRec
+	+ ' AND N.Deleted = 0 '  + @Query + ' ORDER BY ' + @SortField + ' ' + @SortOrder )
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetTotalNews
+	-- Add the parameters for the stored procedure here
+	@query ntext
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	EXEC('SELECT Count(*) AS Total FROM {objectQualifier}DNNInfo_News_News N LEFT JOIN {objectQualifier}Users U ON N.UserID = U.UserID WHERE  N.Deleted = 0 '
+	+ @Query )
+END
+GO
+
+/****************************** END OF NEWS ************************************/
+
+/****************************** YOUTUBE ************************************/
+if not exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_YouTubes]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	BEGIN
+		CREATE TABLE {databaseOwner}[{objectQualifier}DNNInfo_News_YouTubes]
+		(
+			[YouTubeID] [int] IDENTITY(1,1) NOT NULL ,
+	        [YouTubeNewsID] [int] DEFAULT(0) ,
+	        [YouTubeTitle] [nvarchar] (200) ,
+	        [YouTubeCode] [nvarchar] (100) ,
+	        [YouTubeSortIndex] [int]  DEFAULT(0),
+	        [YouTubeDeleted] [bit] DEFAULT(0),
+	        [YouTubeCreated] DateTime ,
+	        [YouTubeUpdated] DateTime 
+		)
+
+		ALTER TABLE {databaseOwner}[{objectQualifier}DNNInfo_News_YouTubes] ADD CONSTRAINT [PK_{objectQualifier}DNNInfo_News_YouTubes] PRIMARY KEY NONCLUSTERED  ([YouTubeID])
+
+	END
+GO
+
+
+/** Drop Existing Stored Procedures **/
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_NewYouTube]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_NewYouTube
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_UpdateYouTube]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_UpdateYouTube
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_DeleteYouTube]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_DeleteYouTube
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetYouTubes]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetYouTubes
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetYouTube]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetYouTube
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetYouTubeByYouTubeCode]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetYouTubeByYouTubeCode
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetTotalYouTubes]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetTotalYouTubes
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_NewYouTube
+    @YouTubeNewsID int,
+    @YouTubeTitle nvarchar(200),
+    @YouTubeCode nvarchar(50),
+    @YouTubeSortIndex int,
+    @YouTubeCreated datetime
+AS
+	INSERT INTO {objectQualifier}DNNInfo_News_YouTubes(
+		YouTubeNewsID ,
+		YouTubeTitle ,
+		YouTubeCode ,
+		YouTubeSortIndex ,
+		YouTubeCreated
+	)VALUES(
+		@YouTubeNewsID ,
+		@YouTubeTitle ,
+		@YouTubeCode ,
+		@YouTubeSortIndex ,
+		@YouTubeCreated
+	)
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_UpdateYouTube
+	@YouTubeID INT,
+    @YouTubeNewsID int,
+    @YouTubeTitle nvarchar(200),
+    @YouTubeCode nvarchar(50),
+    @YouTubeSortIndex int,
+    @YouTubeUpdated datetime
+AS
+	UPDATE {objectQualifier}DNNInfo_News_YouTubes
+	SET YouTubeNewsID = @YouTubeNewsID ,
+		YouTubeTitle = @YouTubeTitle,	
+		YouTubeCode = @YouTubeCode,
+		YouTubeSortIndex = @YouTubeSortIndex,
+		YouTubeUpdated = @YouTubeUpdated
+	WHERE YouTubeID = @YouTubeID
+	
+GO
+
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_DeleteYouTube
+	@YouTubeID int
+AS
+	UPDATE {objectQualifier}DNNInfo_News_YouTubes
+	SET YouTubeDeleted = 1 WHERE YouTubeID = @YouTubeID
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetYouTube
+	-- Add the parameters for the stored procedure here
+	@YouTubeID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT * FROM {objectQualifier}DNNInfo_News_YouTubes 
+	WHERE YouTubeID = @YouTubeID And YoutubeDeleted = 0
+	
+END
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetYouTubeByYouTubeCode
+	-- Add the parameters for the stored procedure here
+	@YouTubeCode nvarchar(50)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT * FROM {objectQualifier}DNNInfo_News_YouTubes 
+	WHERE YouTubeCode = @YouTubeCode And YoutubeDeleted = 0
+	
+END
+GO
+
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetYouTubes
+	@PageIndex int,
+	@PageSize int,
+	@SortField nvarchar(200),
+	@SortOrder char(50),
+	@query ntext
+AS
+	CREATE Table #TempTable(
+		ID int IDENTITY PRIMARY KEY,
+		YID int
+	)
+	
+	INSERT INTO #TempTable(
+		YID
+	)
+	EXEC('SELECT YouTubeID FROM {objectQualifier}DNNInfo_News_YouTubes  WHERE YouTubeDeleted = 0 ' + @Query  + ' ORDER BY ' + @SortField + ' ' + @SortOrder)
+
+	DECLARE @FirstRec int, @LastRec int
+	SELECT @FirstRec = (@PageIndex - 1) * @PageSize
+	SELECT @LastRec = (@PageIndex * @PageSize + 1)
+	DECLARE @sFirstRec nvarchar(50), @sLastRec nvarchar(50)
+	SET @sFirstRec = CONVERT(nvarchar,@FirstRec)
+	SET @sLastRec = CONVERT(nvarchar,@LastRec)
+
+	EXEC('SELECT * FROM {objectQualifier}DNNInfo_News_YouTubes 
+	INNER JOIN #TempTable TT ON YouTubeID = TT.YID 
+	WHERE Id > ' + @sFirstRec + ' AND Id < ' +  @sLastRec
+	+ ' AND YouTubeDeleted = 0 '  + @Query + ' ORDER BY ' + @SortField + ' ' + @SortOrder )
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetTotalYouTubes
+	-- Add the parameters for the stored procedure here
+	@query ntext
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	EXEC('SELECT Count(*) AS Total FROM {objectQualifier}DNNInfo_News_YouTubes WHERE  YouTubeDeleted = 0 ' + @Query )
+END
+GO
+
+/****************************** END OF YOUTUBE ************************************/
+
+
+/****************************** IMAGES ************************************/
+if not exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_Images]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	BEGIN
+		CREATE TABLE {databaseOwner}[{objectQualifier}DNNInfo_News_Images]
+		(
+			[ImageID] [int] IDENTITY(1,1) NOT NULL ,
+	        [NewsID] [int] DEFAULT(0) ,
+	        [ImageName] [nvarchar] (100) ,
+	        [SortIndex] [int]  DEFAULT(0),
+	        [ImageDeleted] [bit]  DEFAULT(0),
+	        [Created] DateTime ,
+	        [Updated] DateTime 
+		)
+
+		ALTER TABLE {databaseOwner}[{objectQualifier}DNNInfo_News_Images] ADD CONSTRAINT [PK_{objectQualifier}DNNInfo_News_Images] PRIMARY KEY NONCLUSTERED  ([ImageID])
+
+	END
+GO
+
+
+/** Drop Existing Stored Procedures **/
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_NewImage]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_NewImage
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_UpdateImage]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_UpdateImage
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_DeleteImage]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_DeleteImage
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetImages]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetImages
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetImage]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetImage
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetTotalImages]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetTotalImages
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_NewImage
+    @NewsID int,
+    @ImageName nvarchar(100),
+    @SortIndex int,
+    @Created datetime
+AS
+	INSERT INTO {objectQualifier}DNNInfo_News_Images(
+		NewsID ,
+		ImageName ,
+		SortIndex ,
+		Created 
+	)VALUES(
+		@NewsID ,
+		@ImageName ,
+		@SortIndex ,
+		@Created 
+	)
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_UpdateImage
+	@ImageID INT,
+    @NewsID int,
+    @ImageName nvarchar(100),
+    @SortIndex int,
+    @Updated datetime
+AS
+	UPDATE {objectQualifier}DNNInfo_News_Images
+	SET NewsID = @NewsID ,
+		ImageName = @ImageName,	
+		SortIndex = @SortIndex,
+		Updated = @Updated
+	WHERE ImageID = @ImageID
+	
+GO
+
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_DeleteImage
+	@ImageID int
+AS
+	UPDATE {objectQualifier}DNNInfo_News_Images
+	SET ImageDeleted = 1 WHERE ImageID = @ImageID
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetImage
+	-- Add the parameters for the stored procedure here
+	@ImageID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT * FROM {objectQualifier}DNNInfo_News_Images 
+	WHERE ImageID = @ImageID And ImageDeleted = 0
+	
+END
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetImages
+	@NewsID INT
+AS
+	SELECT * FROM {objectQualifier}DNNInfo_News_Images  
+	WHERE ImageDeleted = 0 AND NewsID = @NewsID
+	ORDER BY SortIndex ASC, Created ASC
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetTotalImages
+	-- Add the parameters for the stored procedure here
+	@query ntext
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	EXEC('SELECT Count(*) AS Total FROM {objectQualifier}DNNInfo_News_Images WHERE  ImageDeleted = 0 ' + @Query )
+END
+GO
+
+/****************************** END OF IMAGES ************************************/
+
+/****************************** MISC ************************************/
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetRecords]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetRecords
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_RunQuery]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_RunQuery
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetTotalRecords]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetTotalRecords
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetTableColumns]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetTableColumns
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetRecords
+	-- Add the parameters for the stored procedure here
+	@query ntext
+AS
+BEGIN
+	EXEC(@query)
+END
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_RunQuery
+	-- Add the parameters for the stored procedure here
+	@query ntext
+AS
+BEGIN
+	EXEC(@query)
+END
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetTotalRecords
+	-- Add the parameters for the stored procedure here
+	@query ntext
+AS
+BEGIN
+	EXEC(@query)
+END
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetTableColumns
+	@tableName nvarchar(100)
+AS
+	SELECT column_name, data_type, character_maximum_length from information_schema.columns
+WHERE table_name = @tableName
+GO
+/****************************** END OF MISC ************************************/
+
+
+/****************************** NEWS TEMPLATES ****************************************/
+if not exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_NewsTemplates]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	BEGIN
+		CREATE TABLE {databaseOwner}[{objectQualifier}DNNInfo_News_NewsTemplates]
+		(
+			[NewsTemplateID] [int] IDENTITY(1,1) NOT NULL ,
+	        [NewsTemplatePortalID] [int] NULL ,
+	        [NewsTemplateName] [nvarchar] (100) ,
+	        [NewsTemplateListValue] ntext ,
+	        [NewsTemplateDetailsValue] ntext ,
+	        [NewsTemplateDeleted] [BIT] DEFAULT(0) 
+		)
+
+		ALTER TABLE {databaseOwner}[{objectQualifier}DNNInfo_News_NewsTemplates] ADD CONSTRAINT [PK_{objectQualifier}DNNInfo_News_NewsTemplates] PRIMARY KEY NONCLUSTERED  ([NewsTemplateID])
+
+	END
+GO
+
+/** Drop Existing Stored Procedures **/
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_UpdateNewsTemplate]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_UpdateNewsTemplate
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_NewNewsTemplate]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_NewNewsTemplate
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_DeleteNewsTemplate]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_DeleteNewsTemplate
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetNewsTemplates]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetNewsTemplates
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetNewsTemplate]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetNewsTemplate
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_NewNewsTemplate
+	@NewsTemplatePortalID int,
+	@NewsTemplateName nvarchar(50),
+	@NewsTemplateListValue ntext,
+	@NewsTemplateDetailsValue ntext
+AS
+	BEGIN
+		INSERT INTO {objectQualifier}DNNInfo_News_NewsTemplates(
+			NewsTemplatePortalID,
+			NewsTemplateName,
+			NewsTemplateListValue,
+			NewsTemplateDetailsValue
+		)VALUES(
+			@NewsTemplatePortalID,
+			@NewsTemplateName,
+			@NewsTemplateListValue,
+			@NewsTemplateDetailsValue
+		)
+	END 
+		
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_UpdateNewsTemplate
+	@NewsTemplateID INT,
+	@NewsTemplatePortalID int,
+	@NewsTemplateName nvarchar(50),
+	@NewsTemplateListValue ntext,
+	@NewsTemplateDetailsValue ntext
+AS
+	BEGIN
+		UPDATE {objectQualifier}DNNInfo_News_NewsTemplates
+		SET NewsTemplateListValue = @NewsTemplateListValue,
+		NewsTemplateDetailsValue = @NewsTemplateDetailsValue
+		WHERE NewsTemplateID = @NewsTemplateID
+	END 
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_DeleteNewsTemplate
+	-- Add the parameters for the stored procedure here
+	@NewsTemplateID INT
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	UPDATE {objectQualifier}DNNInfo_News_NewsTemplates
+	SET NewsTemplateDeleted = 1
+	WHERE NewsTemplateDeleted = 0 AND NewsTemplateID = @NewsTemplateID
+ 
+END
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetNewsTemplate
+	-- Add the parameters for the stored procedure here
+	@NewsTemplateID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT * FROM {objectQualifier}DNNInfo_News_NewsTemplates
+	WHERE NewsTemplateID = @NewsTemplateID And NewsTemplateDeleted = 0
+ 
+END
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetNewsTemplates
+	-- Add the parameters for the stored procedure here
+	@NewsTemplatePortalID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT * FROM {objectQualifier}DNNInfo_News_NewsTemplates
+	WHERE NewsTemplatePortalID = @NewsTemplatePortalID And NewsTemplateDeleted = 0
+ 
+END
+GO
+
+/****************************** END NEWS TEMPLATES ****************************************/
+
+/****************************** NEWS STATISTICS ****************************************/
+if not exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_NewsStatistics]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	BEGIN
+		CREATE TABLE {databaseOwner}[{objectQualifier}DNNInfo_News_NewsStatistics]
+		(
+			[StatisticID] [int] IDENTITY(1,1) NOT NULL ,
+	        [NewsID] [int] NULL ,
+	        [Hits] [int] DEFAULT(0),
+	        [StatisticDate] [DATETIME]
+		)
+
+		ALTER TABLE {databaseOwner}[{objectQualifier}DNNInfo_News_NewsStatistics] ADD CONSTRAINT [PK_{objectQualifier}DNNInfo_News_NewsStatistics] PRIMARY KEY NONCLUSTERED  ([StatisticID])
+
+	END
+GO
+
+/** Drop Existing Stored Procedures **/
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_UpdateNewsStatistic]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_UpdateNewsStatistic
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetNewsStatistics]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetNewsStatistics
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_UpdateNewsStatistic
+	@NewsID INT,
+	@StatisticDate datetime
+AS
+	DECLARE @ID INT
+	SELECT @ID = StatisticID FROM {objectQualifier}DNNInfo_News_NewsStatistics
+	WHERE NewsID = @NewsID AND StatisticDate = convert(datetime, @StatisticDate, 111)
+	
+	IF @ID > 0 
+		BEGIN
+			UPDATE {objectQualifier}DNNInfo_News_NewsStatistics
+			SET Hits = Hits + 1
+			WHERE StatisticID = @ID
+		END
+	ELSE
+		BEGIN
+			INSERT INTO {objectQualifier}DNNInfo_News_NewsStatistics(
+				NewsID,
+				StatisticDate,
+				Hits
+			)VALUES(
+				@NewsID,
+				convert(datetime, @StatisticDate, 111),
+				1
+			)
+		END
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetNewsStatistics
+	@PageIndex int,
+	@PageSize int,
+	@SortField nvarchar(200),
+	@SortOrder char(50),
+	@query ntext
+AS
+	CREATE Table #TempTable(
+		ID int IDENTITY PRIMARY KEY,
+		SID int
+	)
+	
+	INSERT INTO #TempTable(
+		SID
+	)
+	EXEC('SELECT StatisticID FROM {objectQualifier}DNNInfo_News_NewsStatistics NS INNER JOIN {objectQualifier}DNNInfo_News_News N ON NS.NewsID = N.NewsID WHERE StatisticID > 0 ' + @Query  + ' ORDER BY ' + @SortField + ' ' + @SortOrder)
+	
+	DECLARE @FirstRec int, @LastRec int
+	SELECT @FirstRec = (@PageIndex - 1) * @PageSize
+	SELECT @LastRec = (@PageIndex * @PageSize + 1)
+	DECLARE @sFirstRec nvarchar(50), @sLastRec nvarchar(50)
+	SET @sFirstRec = CONVERT(nvarchar,@FirstRec)
+	SET @sLastRec = CONVERT(nvarchar,@LastRec)
+
+	EXEC('SELECT N.PortalID, N.NewsID, N.Title, SUM(NS.Hits) AS Hits FROM {objectQualifier}DNNInfo_News_NewsStatistics NS INNER JOIN {objectQualifier}DNNInfo_News_News N ON N.NewsID = NS.NewsID INNER JOIN  #TempTable TT ON StatisticID = TT.SID  WHERE StatisticID > 0 ' + @Query  + ' GROUP BY N.PortalID, N.NewsID, N.Title ORDER BY ' + @SortField + ' ' + @SortOrder)
+GO
+
+/****************************** END NEWS STATISTICS  ****************************************/
+
+/****************************** CATEGORIES STATISTICS ****************************************/
+if not exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_CategoryStatistics]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	BEGIN
+		CREATE TABLE {databaseOwner}[{objectQualifier}DNNInfo_News_CategoryStatistics]
+		(
+			[StatisticID] [int] IDENTITY(1,1) NOT NULL ,
+	        [CategoryID] [int] NULL ,
+	        [Hits] [int] DEFAULT(0),
+	        [StatisticDate] [DATETIME]
+		)
+
+		ALTER TABLE {databaseOwner}[{objectQualifier}DNNInfo_News_CategoryStatistics] ADD CONSTRAINT [PK_{objectQualifier}DNNInfo_News_CategoryStatistics] PRIMARY KEY NONCLUSTERED  ([StatisticID])
+
+	END
+GO
+
+/** Drop Existing Stored Procedures **/
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_UpdateCategoryStatistic]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_UpdateCategoryStatistic
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetCategoryStatistics]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetCategoryStatistics
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_UpdateCategoryStatistic
+	@CategoryID INT,
+	@StatisticDate datetime
+AS
+	DECLARE @ID INT
+	SELECT @ID = StatisticID FROM {objectQualifier}DNNInfo_News_CategoryStatistics
+	WHERE CategoryID = @CategoryID AND StatisticDate = convert(datetime, @StatisticDate, 111)
+	
+	IF @ID > 0 
+		BEGIN
+			UPDATE {objectQualifier}DNNInfo_News_CategoryStatistics
+			SET Hits = Hits + 1
+			WHERE StatisticID = @ID
+		END
+	ELSE
+		BEGIN
+			INSERT INTO {objectQualifier}DNNInfo_News_CategoryStatistics(
+				CategoryID,
+				StatisticDate,
+				Hits
+			)VALUES(
+				@CategoryID,
+				convert(datetime, @StatisticDate, 111),
+				1
+			)
+		END
+GO
+
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetCategoryStatistics
+	@PageIndex int,
+	@PageSize int,
+	@SortField nvarchar(200),
+	@SortOrder char(50),
+	@query ntext
+AS
+	CREATE Table #TempTable(
+		ID int IDENTITY PRIMARY KEY,
+		SID int
+	)
+	
+	INSERT INTO #TempTable(
+		SID
+	)
+	EXEC('SELECT StatisticID FROM {objectQualifier}DNNInfo_News_CategoryStatistics CS INNER JOIN {objectQualifier}DNNInfo_News_Categories C ON CS.CategoryID = C.CategoryID WHERE StatisticID > 0 ' + @Query  + ' ORDER BY ' + @SortField + ' ' + @SortOrder)
+	
+	DECLARE @FirstRec int, @LastRec int
+	SELECT @FirstRec = (@PageIndex - 1) * @PageSize
+	SELECT @LastRec = (@PageIndex * @PageSize + 1)
+	DECLARE @sFirstRec nvarchar(50), @sLastRec nvarchar(50)
+	SET @sFirstRec = CONVERT(nvarchar,@FirstRec)
+	SET @sLastRec = CONVERT(nvarchar,@LastRec)
+	
+	EXEC('SELECT C.CategoryID, C.CategoryName, SUM(CS.Hits) As Hits FROM {objectQualifier}DNNInfo_News_CategoryStatistics CS INNER JOIN {objectQualifier}DNNInfo_News_Categories C ON CS.CategoryID = C.CategoryID INNER JOIN  #TempTable TT ON StatisticID = TT.SID WHERE StatisticID > 0 ' + ' ' + @Query  + ' GROUP BY C.CategoryID, C.CategoryName ORDER BY ' + @SortField + ' ' + @SortOrder)
+
+GO
+/****************************** END CATEGORIES STATISTICS  ****************************************/
+
+/****************************** KEYWORD STATISTICS ****************************************/
+if not exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_KeywordStatistics]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	BEGIN
+		CREATE TABLE {databaseOwner}[{objectQualifier}DNNInfo_News_KeywordStatistics]
+		(
+			[StatisticID] [int] IDENTITY(1,1) NOT NULL ,
+	        [PortalID] [int] DEFAULT(0) ,
+	        [Keyword] [nvarchar] (500),
+	        [Hits] [int] DEFAULT(0),
+	        [StatisticDate] [DATETIME]
+		)
+
+		ALTER TABLE {databaseOwner}[{objectQualifier}DNNInfo_News_KeywordStatistics] ADD CONSTRAINT [PK_{objectQualifier}DNNInfo_News_KeywordStatistics] PRIMARY KEY NONCLUSTERED  ([StatisticID])
+
+	END
+GO
+
+/** Drop Existing Stored Procedures **/
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_UpdateKeywordStatistic]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_UpdateKeywordStatistic
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetKeywordStatistics]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetKeywordStatistics
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_UpdateKeywordStatistic
+	@PortalID INT,
+	@Keyword nvarchar(500),
+	@StatisticDate datetime
+AS
+	DECLARE @ID INT
+	SELECT @ID = StatisticID FROM {objectQualifier}DNNInfo_News_KeywordStatistics
+	WHERE PortalID = @PortalID And Keyword = @Keyword AND StatisticDate = convert(datetime, @StatisticDate, 111)
+	
+	IF @ID > 0 
+		BEGIN
+			UPDATE {objectQualifier}DNNInfo_News_KeywordStatistics
+			SET Hits = Hits + 1
+			WHERE StatisticID = @ID
+		END
+	ELSE
+		BEGIN
+			INSERT INTO {objectQualifier}DNNInfo_News_KeywordStatistics(
+				PortalID,
+				Keyword,
+				StatisticDate,
+				Hits
+			)VALUES(
+				@PortalID,
+				@Keyword,
+				convert(datetime, @StatisticDate, 111),
+				1
+			)
+		END
+GO
+
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetKeywordStatistics
+	@PageIndex int,
+	@PageSize int,
+	@SortField nvarchar(200),
+	@SortOrder char(50),
+	@query ntext
+AS
+	CREATE Table #TempTable(
+		ID int IDENTITY PRIMARY KEY,
+		SID int
+	)
+	
+	INSERT INTO #TempTable(
+		SID
+	)
+	EXEC('SELECT StatisticID FROM {objectQualifier}DNNInfo_News_KeywordStatistics  WHERE StatisticID > 0 ' + @Query  + ' ORDER BY ' + @SortField + ' ' + @SortOrder)
+	
+	DECLARE @FirstRec int, @LastRec int
+	SELECT @FirstRec = (@PageIndex - 1) * @PageSize
+	SELECT @LastRec = (@PageIndex * @PageSize + 1)
+	DECLARE @sFirstRec nvarchar(50), @sLastRec nvarchar(50)
+	SET @sFirstRec = CONVERT(nvarchar,@FirstRec)
+	SET @sLastRec = CONVERT(nvarchar,@LastRec)
+	
+	EXEC('SELECT KS.PortalID, KS.Keyword, SUM(KS.Hits) As Hits FROM {objectQualifier}DNNInfo_News_KeywordStatistics KS INNER JOIN  #TempTable TT ON KS.StatisticID = TT.SID WHERE StatisticID > 0 ' + @Query  + ' GROUP BY KS.PortalID, KS.Keyword ORDER BY ' + @SortField + ' ' + @SortOrder)
+
+GO
+/****************************** END KEYWORD STATISTICS  ****************************************/
+
+
+/****************************** TAG STATISTICS ****************************************/
+if not exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_TagStatistics]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	BEGIN
+		CREATE TABLE {databaseOwner}[{objectQualifier}DNNInfo_News_TagStatistics]
+		(
+			[StatisticID] [int] IDENTITY(1,1) NOT NULL ,
+	        [PortalID] [int] DEFAULT(0) ,
+	        [Tag] [nvarchar] (500),
+	        [Hits] [int] DEFAULT(0),
+	        [StatisticDate] [DATETIME]
+		)
+
+		ALTER TABLE {databaseOwner}[{objectQualifier}DNNInfo_News_TagStatistics] ADD CONSTRAINT [PK_{objectQualifier}DNNInfo_News_TagStatistics] PRIMARY KEY NONCLUSTERED  ([StatisticID])
+
+	END
+GO
+
+/** Drop Existing Stored Procedures **/
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_UpdateTagStatistic]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_UpdateTagStatistic
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetTagStatistics]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetTagStatistics
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_UpdateTagStatistic
+	@PortalID INT,
+	@Tag nvarchar(500),
+	@StatisticDate datetime
+AS
+	DECLARE @ID INT
+	SELECT @ID = StatisticID FROM {objectQualifier}DNNInfo_News_TagStatistics
+	WHERE PortalID = @PortalID And Tag = @Tag AND StatisticDate = convert(datetime, @StatisticDate, 111)
+	
+	IF @ID > 0 
+		BEGIN
+			UPDATE {objectQualifier}DNNInfo_News_TagStatistics
+			SET Hits = Hits + 1
+			WHERE StatisticID = @ID
+		END
+	ELSE
+		BEGIN
+			INSERT INTO {objectQualifier}DNNInfo_News_TagStatistics(
+				PortalID,
+				Tag,
+				StatisticDate,
+				Hits
+			)VALUES(
+				@PortalID,
+				@Tag,
+				convert(datetime, @StatisticDate, 111),
+				1
+			)
+		END
+GO
+
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetTagStatistics
+	@PageIndex int,
+	@PageSize int,
+	@SortField nvarchar(200),
+	@SortOrder char(50),
+	@query ntext
+AS
+	CREATE Table #TempTable(
+		ID int IDENTITY PRIMARY KEY,
+		SID int
+	)
+	
+	INSERT INTO #TempTable(
+		SID
+	)
+	EXEC('SELECT StatisticID FROM {objectQualifier}DNNInfo_News_TagStatistics  WHERE StatisticID > 0 ' + @Query  + ' ORDER BY ' + @SortField + ' ' + @SortOrder)
+	
+	DECLARE @FirstRec int, @LastRec int
+	SELECT @FirstRec = (@PageIndex - 1) * @PageSize
+	SELECT @LastRec = (@PageIndex * @PageSize + 1)
+	DECLARE @sFirstRec nvarchar(50), @sLastRec nvarchar(50)
+	SET @sFirstRec = CONVERT(nvarchar,@FirstRec)
+	SET @sLastRec = CONVERT(nvarchar,@LastRec)
+	
+	EXEC('SELECT KS.PortalID, KS.Tag, SUM(KS.Hits) As Hits FROM {objectQualifier}DNNInfo_News_TagStatistics KS INNER JOIN  #TempTable TT ON KS.StatisticID = TT.SID WHERE StatisticID > 0 ' + @Query  + ' GROUP BY KS.PortalID, KS.Tag ORDER BY ' + @SortField + ' ' + @SortOrder)
+
+GO
+/****************************** END TAG STATISTICS  ****************************************/
+
+
+
+/****************************** Comment ************************************/
+if not exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_Comments]') and OBJECTPROPERTY(id, N'IsTable') = 1)
+	BEGIN
+		CREATE TABLE {databaseOwner}[{objectQualifier}DNNInfo_News_Comments]
+		(
+			[CommentID] [int] IDENTITY(1,1) NOT NULL ,
+	        [PortalID] [int] DEFAULT(0) ,
+	        [NewsID] [int] DEFAULT(0) ,
+	        [UserID] [int] DEFAULT(0) ,
+	        [ReplyCommentID] [int] DEFAULT(0) ,
+	        [AnonymousName] [nvarchar] (100) ,
+	        [AnonymousEmail] [nvarchar] (100),
+	        [Comment] ntext,
+			[Approved] bit,
+			[IPAddress] [nvarchar] (50),
+	        [CommentDate] [datetime] ,
+	        [Deleted] [bit] DEFAULT(0)
+		)
+
+		ALTER TABLE {databaseOwner}[{objectQualifier}DNNInfo_News_Comments] ADD CONSTRAINT [PK_{objectQualifier}DNNInfo_News_Comments] PRIMARY KEY NONCLUSTERED  ([CommentID])
+
+	END
+GO
+
+
+/** Drop Existing Stored Procedures **/
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_NewComment]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_NewComment
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_UpdateComment]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_UpdateComment
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_DeleteComment]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_DeleteComment
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetComment]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetComment
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetComments]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetComments
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'{databaseOwner}[{objectQualifier}DNNInfo_News_GetTotalComments]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure {databaseOwner}{objectQualifier}DNNInfo_News_GetTotalComments
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_NewComment
+    @PortalID int,
+    @NewsID int,
+    @UserID int,
+    @ReplyCommentID int,
+    @AnonymousName nvarchar(100) ,
+    @AnonymousEmail nvarchar(100),
+	@Comment ntext,
+	@Approved bit ,
+    @IPAddress nvarchar(50) ,
+    @CommentDate datetime
+AS
+	INSERT INTO {objectQualifier}DNNInfo_News_Comments(
+		NewsID ,
+		PortalID ,
+		UserID ,
+		ReplyCommentID ,
+		AnonymousName  ,
+		AnonymousEmail ,
+		Comment ,
+		Approved  ,
+		IPAddress ,
+		CommentDate 
+	)VALUES(
+		@NewsID ,
+		@PortalID ,
+		@UserID ,
+		@ReplyCommentID ,
+		@AnonymousName  ,
+		@AnonymousEmail ,
+		@Comment ,
+		@Approved  ,
+		@IPAddress ,
+		@CommentDate 
+	)
+	
+	SELECT SCOPE_IDENTITY()
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_UpdateComment
+    @CommentID int,
+    @PortalID int,
+    @NewsID int,
+    @UserID int,
+    @ReplyCommentID int,
+    @AnonymousName nvarchar(100) ,
+    @AnonymousEmail nvarchar(100),
+	@Comment ntext,
+	@Approved bit ,
+    @IPAddress nvarchar(50) ,
+    @CommentDate datetime
+AS
+	UPDATE {objectQualifier}DNNInfo_News_Comments
+	SET UserID = @UserID ,
+	NewsID = @NewsID,
+	PortalID = @PortalID,
+	ReplyCommentID = @ReplyCommentID,
+    AnonymousName = @AnonymousName  ,
+    AnonymousEmail =  @AnonymousEmail ,
+    Comment = @Comment ,
+	Approved = @Approved ,
+	IPAddress = @IPAddress  ,
+    CommentDate = @CommentDate
+    Where CommentID = @CommentID
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_DeleteComment
+	@CommentID int
+AS
+	UPDATE {objectQualifier}DNNInfo_News_Comments
+	SET Deleted = 1 WHERE CommentID = @CommentID
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetComment
+	-- Add the parameters for the stored procedure here
+	@CommentID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT * FROM {objectQualifier}DNNInfo_News_Comments CM
+	LEFT JOIN {objectQualifier}Users U ON CM.UserID = U.UserID
+	INNER JOIN {objectQualifier}DNNInfo_News_News N ON CM.NewsID = N.NewsID
+	WHERE CommentID = @CommentID And CM.Deleted = 0
+	
+END
+GO
+
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetComments
+	@PageIndex int,
+	@PageSize int,
+	@SortField nvarchar(200),
+	@SortOrder char(50),
+	@query ntext
+AS
+	CREATE Table #TempTable(
+		ID int IDENTITY PRIMARY KEY,
+		CID int
+	)
+	
+	INSERT INTO #TempTable(
+		CID
+	)
+	EXEC('SELECT CM.CommentID FROM {objectQualifier}DNNInfo_News_Comments CM 
+	LEFT JOIN {objectQualifier}Users U ON CM.UserID = U.UserID
+	INNER JOIN {objectQualifier}DNNInfo_News_News N ON CM.NewsID = N.NewsID 
+	WHERE CM.Deleted = 0 ' + @Query  + ' ORDER BY ' + @SortField + ' ' + @SortOrder)
+
+	DECLARE @FirstRec int, @LastRec int
+	SELECT @FirstRec = (@PageIndex - 1) * @PageSize
+	SELECT @LastRec = (@PageIndex * @PageSize + 1)
+	DECLARE @sFirstRec nvarchar(50), @sLastRec nvarchar(50)
+	SET @sFirstRec = CONVERT(nvarchar,@FirstRec)
+	SET @sLastRec = CONVERT(nvarchar,@LastRec)
+
+	EXEC('SELECT CM.*, U.FirstName, U.LastName, U.DisplayName, U.Email, N.Title FROM {objectQualifier}DNNInfo_News_Comments CM 
+	LEFT JOIN {objectQualifier}Users U ON CM.UserID = U.UserID 
+	INNER JOIN {objectQualifier}DNNInfo_News_News N ON CM.NewsID = N.NewsID
+	INNER JOIN #TempTable TT ON CM.CommentID = TT.CID 
+	WHERE Id > ' + @sFirstRec + ' AND Id < ' +  @sLastRec
+	+ ' AND CM.Deleted = 0 '  + @Query + ' ORDER BY ' + @SortField + ' ' + @SortOrder )
+GO
+
+CREATE PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetTotalComments
+	-- Add the parameters for the stored procedure here
+	@query ntext
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	EXEC('SELECT Count(*) AS Total FROM {objectQualifier}DNNInfo_News_Comments CM 
+	LEFT JOIN {objectQualifier}Users U ON CM.UserID = U.UserID 
+	INNER JOIN {objectQualifier}DNNInfo_News_News N ON CM.NewsID = N.NewsID 
+	WHERE CM.Deleted = 0 ' + @Query )
+END
+GO
+
+/****************************** END OF Comment ************************************/
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/************************************************************/

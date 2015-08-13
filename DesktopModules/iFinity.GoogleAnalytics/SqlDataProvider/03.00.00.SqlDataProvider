@@ -1,0 +1,175 @@
+﻿/****** Object:  Table {databaseOwner}[{objectQualifier}ifty_ga_TrackedEvent]    Script Date: 08/20/2012 17:18:39 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}ifty_ga_TrackedEvent]') AND type in (N'U'))
+BEGIN
+CREATE TABLE {databaseOwner}[{objectQualifier}ifty_ga_TrackedEvent](
+	[TrackedEventId] [uniqueidentifier] NOT NULL,
+	[PortalId] [int] NOT NULL,
+	[TabId] [int] NULL,
+	[MatchType] [nvarchar](20) NOT NULL,
+	[MatchValue] [nvarchar](512) NOT NULL,
+	[Category] [nvarchar](255) NOT NULL,
+	[Event] [nvarchar](255) NOT NULL,
+	[Label] [nvarchar](255) NULL,
+	[LabelSelector] [nvarchar](255) NULL,
+	[Value] [int] NULL,
+	[ValueSelector] [nvarchar](255) NULL,
+	[CreatedByUserId] [int] NOT NULL,
+	[CreatedOnDate] [datetime] NOT NULL,
+	[LastModifiedByUserId] [int] NOT NULL,
+	[LastModifiedOnDate] [datetime] NOT NULL,
+ CONSTRAINT [PK_{objectQualifier}ifty_ga_TrackedEvent] PRIMARY KEY CLUSTERED 
+(
+	[TrackedEventId] ASC
+)
+)
+END
+GO
+/****** Object:  StoredProcedure {databaseOwner}[{objectQualifier}ifty_ga_SaveTrackedEvent]    Script Date: 08/20/2012 17:18:50 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}ifty_ga_SaveTrackedEvent]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC sp_executesql @statement = N'-- =============================================
+-- Author:		Bruce Chapman
+-- Create date: 14 Aug 2012
+-- Description:	Inserts/Updates a Tracked event in the database
+-- =============================================
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}ifty_ga_SaveTrackedEvent] 
+	@trackedEventId uniqueidentifier
+	,@portalId int	
+	,@tabId int
+	,@matchType nvarchar(20)
+	,@matchValue nvarchar(512)
+	,@category nvarchar(255)
+	,@event nvarchar(255)
+	,@label nvarchar(255)
+	,@labelSelector nvarchar(255)
+	,@value nvarchar(255)
+	,@valueSelector nvarchar(255)
+	,@createdByUserId int
+	,@createdOnDate datetime
+	,@lastModifiedByUserId int
+	,@lastModifiedOnDate datetime
+	,@markedDelete bit
+AS
+BEGIN
+	SET NOCOUNT ON
+	
+	SELECT TrackedEventId
+	FROM  {databaseOwner}[{objectQualifier}ifty_ga_TrackedEvent]
+	where TrackedEventId = @trackedEventId
+	  and @markedDelete = 0
+		
+	if @@rowcount = 0
+	Begin
+		INSERT INTO {databaseOwner}[{objectQualifier}ifty_ga_TrackedEvent]
+			   ([TrackedEventId]
+			   ,[PortalId]
+			   ,[TabId]
+			   ,[MatchType]
+			   ,[MatchValue]
+			   ,[Category]
+			   ,[Event]
+			   ,[Label]
+			   ,[LabelSelector]
+			   ,[Value]
+			   ,[ValueSelector]
+			   ,[CreatedByUserId]
+			   ,[CreatedOnDate]
+			   ,[LastModifiedByUserId]
+			   ,[LastModifiedOnDate])
+		 VALUES
+			   (@trackedEventId
+			   ,@portalId
+			   ,case when @tabId = -1 then null else @tabId end
+			   ,@matchType
+			   ,@matchValue
+			   ,@category
+			   ,@event
+			   ,@label
+			   ,@labelSelector
+			   ,@value
+			   ,@valueSelector
+			   ,@createdByUserId
+			   ,@createdOnDate
+			   ,@lastModifiedByUserId
+			   ,@lastModifiedOnDate)
+	end
+	else
+	begin
+		if (@markedDelete = 1)
+		begin
+			delete from {databaseOwner}[{objectQualifier}ifty_ga_TrackedEvent]
+			where TrackedEventId = @trackedEventId
+		end
+		else
+		begin
+		   UPDATE {databaseOwner}[{objectQualifier}ifty_ga_TrackedEvent]
+		   SET [PortalId] = @portalId
+			  ,[TabId] = case when @tabId = -1 then null else @tabId end
+			  ,[MatchType] = @matchType
+			  ,[MatchValue] = @matchValue
+			  ,[Category] = @category
+			  ,[Event] = @event
+			  ,[Label] = @label
+			  ,[LabelSelector] = @labelSelector
+			  ,[Value] = @value
+			  ,[ValueSelector] = @valueSelector
+			  ,[LastModifiedByUserId] = @lastModifiedByUserId
+			  ,[LastModifiedOnDate] = @lastModifiedOnDate
+		  WHERE [TrackedEventId] = @trackedEventId
+		End
+	End
+	
+END
+' 
+END
+GO
+/****** Object:  StoredProcedure {databaseOwner}[{objectQualifier}ifty_ga_GetTrackedEvents]    Script Date: 08/20/2012 17:18:50 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}ifty_ga_GetTrackedEvents]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC sp_executesql @statement = N'-- =============================================
+-- Author:		Bruce Chapman
+-- Create date: 6 Aug 2012
+-- Description:	Returns list of TrackedEvents for a portal
+-- =============================================
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}ifty_ga_GetTrackedEvents] 
+	@portalId int 
+AS
+BEGIN
+	SET NOCOUNT ON
+
+    
+	SELECT [TrackedEventId]
+      ,[PortalId]
+      ,[TabId]
+      ,[MatchType]
+      ,[MatchValue]
+      ,[Category]
+      ,[Event]
+      ,[Label]
+      ,[LabelSelector]
+      ,[Value]
+      ,[ValueSelector]
+      ,[CreatedByUserId]
+      ,[CreatedOnDate]
+      ,[LastModifiedByUserId]
+      ,[LastModifiedOnDate]
+  FROM {databaseOwner}[{objectQualifier}ifty_ga_TrackedEvent]
+  Where PortalId = @portalId
+  Order by TabId ASC  
+
+END
+' 
+END
+GO

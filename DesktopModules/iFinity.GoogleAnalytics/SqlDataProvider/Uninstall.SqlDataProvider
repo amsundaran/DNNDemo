@@ -1,0 +1,12 @@
+﻿/****** Object:  StoredProcedure {databaseOwner}[{objectQualifier}ifty_ga_GetTrackedEvents]    Script Date: 08/20/2012 17:18:50 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}ifty_ga_GetTrackedEvents]') AND type in (N'P', N'PC'))
+DROP PROCEDURE {databaseOwner}[{objectQualifier}ifty_ga_GetTrackedEvents]
+GO
+/****** Object:  StoredProcedure {databaseOwner}[{objectQualifier}ifty_ga_SaveTrackedEvent]    Script Date: 08/20/2012 17:18:50 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}ifty_ga_SaveTrackedEvent]') AND type in (N'P', N'PC'))
+DROP PROCEDURE {databaseOwner}[{objectQualifier}ifty_ga_SaveTrackedEvent]
+GO
+/****** Object:  Table {databaseOwner}[{objectQualifier}ifty_ga_TrackedEvent]    Script Date: 08/20/2012 17:18:39 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}ifty_ga_TrackedEvent]') AND type in (N'U'))
+DROP TABLE {databaseOwner}[{objectQualifier}ifty_ga_TrackedEvent]
+GO

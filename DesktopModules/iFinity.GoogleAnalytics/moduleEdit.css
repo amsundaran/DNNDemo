@@ -1,0 +1,100 @@
+﻿/* 
+   Google Analytics Module
+   Copyright 2007 iFinity
+*/
+
+.GoogleAnalyticsSettings
+{
+	/* contains the settings */
+}
+
+.GoogleAnalyticsSettingsTable
+{
+	/* table to hold the settings */
+	font-size:smaller;
+}
+
+#analyticsTrackingTbl
+{
+	padding:5px;
+	border:1px solid #efefef;
+}
+#analyticsTrackingTbl td
+{
+	padding-right:8px;
+	padding-left:5px;
+	border-left:1px solid #efefef;
+}
+#analyticsTrackingTbl th.span
+{
+	margin-right:15px;
+}
+.formItemHelp
+{
+	clear:both;
+	display:block;
+	font-size:smaller;
+	padding-bottom:4px;
+	background-image: url(../../images/help.gif);
+	background-repeat:no-repeat;
+	cursor: pointer;
+	padding-left: 18px;
+	width: 0px;	
+	height:15px;
+	margin-left:125px;
+	overflow:hidden;
+}
+.formItemShow
+{
+	top:0px;
+	width: 200px;
+	height:auto;
+}
+	.ui-combobox {
+		position: relative;
+		display: inline-block;
+	}
+	.ui-combobox-toggle {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		margin-left: -1px;
+		padding: 0;
+		/* adjust styles for IE 6/7 */
+		*height: 1.7em;
+		*top: 0.1em;
+	}
+	.ui-combobox-input {
+		margin: 0;
+		padding: 0.3em;
+	}
+	.trackedlinks
+	{
+		background-color:#00CC00;
+		padding:10px;
+		font-weight:bold;
+		color:White;
+		-moz-border-radius: 7px;
+		-webkit-border-radius: 7px;		
+		/*border: 5px solid #009900;*/
+		hover: {opacity: 0.6; }
+	}
+	.trackedlinksOn
+	{
+		background-color:#FF3333;
+	}
+	.formOpt
+	{
+		display:inline-block;
+		padding:5px;
+	}
+	.trackingDialogContents 
+	{
+		margin:15px;
+	}
+	/* autocomplete drop down classes*/
+	.dd-button { margin-left: -23px; }     
+	.dd-button-icon {background-image : url(images/down.gif); background-repeat:no-repeat; background-position: 50% center;}
+	.dd-button-down {background-image : url(images/up.gif); background-repeat:no-repeat; background-position: 50% center;}
+	.dd-button-text { padding: 0.35em; }      
+	.ui-autocomplete-input { margin: 0; padding: 0.48em 0 0.47em 0.45em; }​

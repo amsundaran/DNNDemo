@@ -1,0 +1,8 @@
+D:\dnndev\DesktopModules\My Module\bin\SFContact.dll
+D:\dnndev\DesktopModules\My Module\bin\SFContact.pdb
+D:\dnndev\DesktopModules\My Module\SFContact\SFContact\obj\Release\SFContact.dll
+D:\dnndev\DesktopModules\My Module\SFContact\SFContact\obj\Release\SFContact.pdb
+D:\dnndev\DesktopModules\My Module\bin\SFContact.dll.config
+D:\dnndev\DesktopModules\My Module\bin\SFContact.XmlSerializers.dll
+D:\dnndev\DesktopModules\My Module\SFContact\SFContact\obj\Release\SFContact.XmlSerializers.dll
+D:\dnndev\DesktopModules\My Module\SFContact\SFContact\obj\Release\SFContact.csprojResolveAssemblyReference.cache

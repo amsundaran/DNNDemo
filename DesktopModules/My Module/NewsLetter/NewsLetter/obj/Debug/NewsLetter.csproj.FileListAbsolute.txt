@@ -1,0 +1,5 @@
+D:\dnndev\DesktopModules\My Module\bin\NewsLetter.dll
+D:\dnndev\DesktopModules\My Module\bin\NewsLetter.pdb
+D:\dnndev\DesktopModules\My Module\NewsLetter\NewsLetter\obj\Debug\NewsLetter.csprojResolveAssemblyReference.cache
+D:\dnndev\DesktopModules\My Module\NewsLetter\NewsLetter\obj\Debug\NewsLetter.dll
+D:\dnndev\DesktopModules\My Module\NewsLetter\NewsLetter\obj\Debug\NewsLetter.pdb

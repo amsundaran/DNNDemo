@@ -1,0 +1,59 @@
+﻿/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetComment
+	-- Add the parameters for the stored procedure here
+	@CommentID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT CM.*, U.FirstName, U.LastName, U.DisplayName, U.Email, N.Title FROM {objectQualifier}DNNInfo_News_Comments CM
+	LEFT JOIN {objectQualifier}Users U ON CM.UserID = U.UserID
+	INNER JOIN {objectQualifier}DNNInfo_News_News N ON CM.NewsID = N.NewsID
+	WHERE CommentID = @CommentID And CM.Deleted = 0
+	
+END
+
+GO
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_GetCategories
+	@PageIndex int,
+	@PageSize int,
+	@SortField nvarchar(200),
+	@SortOrder char(50),
+	@query ntext
+AS
+	CREATE Table #TempTable(
+		ID int IDENTITY PRIMARY KEY,
+		CID int
+	)
+	
+	INSERT INTO #TempTable(
+		CID
+	)
+	EXEC('SELECT C.CategoryID FROM {objectQualifier}DNNInfo_News_Categories C WHERE C.CategoryDeleted = 0 ' + @Query  + ' ORDER BY ' + @SortField + ' ' + @SortOrder)
+
+	DECLARE @FirstRec int, @LastRec int
+	SELECT @FirstRec = (@PageIndex - 1) * @PageSize
+	SELECT @LastRec = (@PageIndex * @PageSize + 1)
+	DECLARE @sFirstRec nvarchar(50), @sLastRec nvarchar(50)
+	SET @sFirstRec = CONVERT(nvarchar,@FirstRec)
+	SET @sLastRec = CONVERT(nvarchar,@LastRec)
+
+	EXEC('SELECT C.*, CP.CategoryName As CategoryParentName FROM {objectQualifier}DNNInfo_News_Categories C 
+	LEFT JOIN {objectQualifier}DNNInfo_News_Categories CP ON C.CategoryParentID = CP.CategoryID 
+	INNER JOIN #TempTable TT ON C.CategoryID = TT.CID 
+	WHERE Id > ' + @sFirstRec + ' AND Id < ' +  @sLastRec
+	+ ' AND C.CategoryDeleted = 0 '  + @Query + ' ORDER BY ' + @SortField + ' ' + @SortOrder )
+GO

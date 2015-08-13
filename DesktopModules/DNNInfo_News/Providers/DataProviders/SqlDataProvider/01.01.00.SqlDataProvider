@@ -1,0 +1,81 @@
+﻿/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+/****************************** NEWS TABLE ************************************/
+ALTER TABLE {databaseOwner}{objectQualifier}DNNInfo_News_News
+	ADD [AuthorOtherName] NVARCHAR(100) DEFAULT NULL
+GO
+
+
+ALTER PROCEDURE {databaseOwner}{objectQualifier}DNNInfo_News_UpdateNews
+    @NewsID int,
+    @PortalID int,
+    @UserID int,
+    @Title nvarchar(1000) ,
+    @CategoryIDs nvarchar(1000),
+    @ShortDescription ntext,
+	@Description ntext,
+	@Keywords nvarchar(1000) ,
+    @MetaTitle nvarchar(1000) ,
+    @MetaDescription nvarchar(1000) ,
+    @MetaKeyword nvarchar(1000) ,
+    @NewsImage nvarchar(100) ,
+    @NoOfRatings int,
+    @NoOfComments int,
+    @NoOfViews int,
+    @RatingValue float,
+    @Featured bit,
+    @Draft bit,
+    @Published bit,
+    @Active bit,
+    @Archived bit,
+    @AddedDate DateTime ,
+    @UpdatedDate DateTime ,
+    @PublishedDate DateTime ,
+    @ExpiredDate DateTime ,
+    @ArchivedDate DateTime,
+    @NewsURL nvarchar(500),
+    @AuthorOtherName nvarchar(100)
+AS
+	UPDATE {objectQualifier}DNNInfo_News_News
+	SET UserID = @UserID ,
+    Title = @Title  ,
+    CategoryIDs =  @CategoryIDs ,
+    ShortDescription = @ShortDescription ,
+	Description = @Description ,
+	Keywords = @Keywords  ,
+    MetaTitle = @MetaTitle  ,
+    MetaDescription = @MetaDescription  ,
+    MetaKeyword = @MetaKeyword  ,
+    NewsImage = @NewsImage  ,
+    NoOfRatings = @NoOfRatings ,
+    NoOfComments = @NoOfComments ,
+    NoOfViews = @NoOfViews,
+    RatingValue = @RatingValue ,
+    Featured = @Featured ,
+    Draft = @Draft ,
+    Published = @Published ,
+    Active = @Active ,
+    Archived = @Archived ,
+    AddedDate = @AddedDate  ,
+    UpdatedDate = @UpdatedDate  ,
+    PublishedDate = @PublishedDate  ,
+    ExpiredDate = @ExpiredDate  ,
+    ArchivedDate = @ArchivedDate  ,
+    NewsURL = @NewsURL,
+    AuthorOtherName = @AuthorOtherName
+    Where PortalID = @PortalID AND NewsID = @NewsID
+GO
+
+
+/****************************** END OF NEWS TABLE *****************************/
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/************************************************************/
